@@ -4,14 +4,14 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Commands.ToggleCompressor;
 import frc.robot.Subsystems.Compresor;
 
 public class RobotContainer {
-  XboxController operator = Controls.xbox_operator;
+  CommandXboxController operator = Controls.operator;
   Compresor compresor = new Compresor();
   public RobotContainer() {
     configureBindings();
