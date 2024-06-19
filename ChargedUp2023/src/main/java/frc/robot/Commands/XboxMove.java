@@ -73,11 +73,11 @@ public class XboxMove extends Command {
     double pirouetteTurn = Math.abs(turn);
     if (pirouette){
       // turning left
-      if (turn <= sensitivity){
+      if (turn <= (negPower * sensitivity)){
         drivebase.move(negPower * pirouetteTurn, pirouetteTurn);
       }
       // turning right
-      if (turn >= sensitivity){
+      else if (turn >= sensitivity){
         drivebase.move(pirouetteTurn, negPower * pirouetteTurn);
       }
       // no movement
