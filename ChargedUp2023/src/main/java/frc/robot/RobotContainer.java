@@ -4,15 +4,22 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.Commands.ToggleCompressor;
+import frc.robot.Subsystems.Compresor;
 
 public class RobotContainer {
+  XboxController operator = Controls.xbox_operator;
+  Compresor compresor = new Compresor();
   public RobotContainer() {
     configureBindings();
   }
 
-  private void configureBindings() {}
+  private void configureBindings() {
+    operator.x().whileTrue(new ToggleCompressor(compresor));
+  }
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
