@@ -7,12 +7,12 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.Drivebase;
 
-public class LowGear extends Command {
+public class ToggleGear extends Command {
   private Drivebase gearShifter;
   boolean endCommand;
 
   /** Creates a new HighGear. */
-  public LowGear(Drivebase m_gearShifter) {
+  public ToggleGear(Drivebase m_gearShifter) {
     gearShifter = m_gearShifter;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gearShifter);
@@ -27,7 +27,7 @@ public class LowGear extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    gearShifter.lowGear();
+    gearShifter.invertGear();
 
     endCommand = true;
   }

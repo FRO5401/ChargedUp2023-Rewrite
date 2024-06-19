@@ -106,13 +106,8 @@ public class Drivebase extends SubsystemBase {
     rightDrive1.set(right);
   }
 
-  public void highGear(){
-    isHighGear = true;
-    gearShifter.set(isHighGear);
-  }
-
-  public void lowGear(){
-    isHighGear = false;
+  public void invertGear(){
+    isHighGear = !isHighGear;
     gearShifter.set(isHighGear);
   }
 
