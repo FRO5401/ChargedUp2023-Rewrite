@@ -20,4 +20,9 @@ public final class Constants {
     public static class LEDConstants{
         
     }
+
+    public static class CompressorConstants{
+        
+        public static final int COMPRESSOR_ID = 0;
+    }
 }
