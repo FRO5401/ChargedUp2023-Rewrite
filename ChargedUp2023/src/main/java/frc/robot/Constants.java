@@ -2,10 +2,7 @@ package frc.robot;
 
 public final class Constants {
     public static class ControlConstants{
-        public static final int XBOX_CONTROLLER_DRIVER = 0;
-        public static final int XBOX_CONTROLLER_OPERATOR = 1;
-
-        //
+        // controller specs
         public static final int XBOX_CONTROLLER_DRIVER = 0;
         public static final int XBOX_CONTROLLER_OPERATOR = 1;
         public static final double CONTROLLER_SENSITIVITY = 0.05;
@@ -42,7 +39,12 @@ public final class Constants {
     }
 
     public static class CompressorConstants{
-        
+        //compressor id
         public static final int COMPRESSOR_ID = 0;
+    }
+
+    public static class PneumaticsConstants{
+        public static final int CTREPCM_ID = 0;
+        public static final int GEARSHIFTER_CHANNEL = 0;
     }
 }

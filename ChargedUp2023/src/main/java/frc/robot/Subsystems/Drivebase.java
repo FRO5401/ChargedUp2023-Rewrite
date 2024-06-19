@@ -13,7 +13,6 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Relay.Value;
 //    Robot
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.PneumaticsConstants;
@@ -108,7 +107,7 @@ public class Drivebase extends SubsystemBase {
   }
 
   public void highGear(){
-    isHighGear = !isHighGear;
+    isHighGear = true;
     gearShifter.set(isHighGear);
   }
 
