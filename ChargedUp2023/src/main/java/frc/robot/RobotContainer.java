@@ -18,7 +18,7 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    operator.x().whileTrue(new ToggleCompressor(compresor));
+    operator.x().onTrue(new ToggleCompressor(compresor));
   }
 
   public Command getAutonomousCommand() {
