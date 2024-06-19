@@ -19,7 +19,15 @@ public class Compresor extends SubsystemBase {
   public Compresor() {
     compressor = new Compressor(CompressorConstants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM);
   }
-
+  public void enable(){
+    compressor.enableDigital();
+  }
+  public void disable(){
+    compressor.disable();
+  }
+  public boolean getCompressor(){
+    return compressor.isEnabled();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
