@@ -11,12 +11,12 @@ public final class Constants {
 
     public static class DriveConstants{
         //motor ids
-        public static final int LEFT_MOTOR_1 = 0;
-        public static final int LEFT_MOTOR_2 = 0;
-        public static final int LEFT_MOTOR_3 = 0;
-        public static final int RIGHT_MOTOR_1 = 0;
-        public static final int RIGHT_MOTOR_2 = 0;
-        public static final int RIGHT_MOTOR_3 = 0;
+        public static final int LEFT_MOTOR_1 = 2;
+        public static final int LEFT_MOTOR_2 = 4;
+        public static final int LEFT_MOTOR_3 = 6;
+        public static final int RIGHT_MOTOR_1 = 1;
+        public static final int RIGHT_MOTOR_2 = 3;
+        public static final int RIGHT_MOTOR_3 = 5;
 
         //power percentages
         public static final int FULL_POWER_PERCENT = 1;
