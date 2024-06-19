@@ -26,24 +26,45 @@ public class Drivebase extends SubsystemBase {
   /*    Encoders */
   //      Left Encoder
   private RelativeEncoder leftEncoder1;
-
+  private RelativeEncoder leftEncoder2;
+  private RelativeEncoder leftEncoder3;
   //      Right Encoder
   private RelativeEncoder rightEncoder1;
-
+  private RelativeEncoder rightEncoder2;
+  private RelativeEncoder rightEncoder3;
 
   /** Creates a new Drivebase. */
   public Drivebase() {
-    /*    Initializing CANSparkMaxs */
-    //      Left Drive Motors
+    /*    Initializing Variables */
+    /*      Initializing CANSparkMaxs */
+    //        Left Drive Motors
     leftDrive1 = new CANSparkMax(0, MotorType.kBrushless);
     leftDrive2 = new CANSparkMax(0, MotorType.kBrushless);
     leftDrive3 = new CANSparkMax(0, MotorType.kBrushless);
-    //      Right Drive Motors
+    //        Right Drive Motors
     rightDrive1 = new CANSparkMax(0, MotorType.kBrushless);
     rightDrive2 = new CANSparkMax(0, MotorType.kBrushless);
     rightDrive3 = new CANSparkMax(0, MotorType.kBrushless);
 
-    /*    Restore */
+    /*      Initializing Encoders */
+    //        Left Drive Encoders
+    leftEncoder1 = leftDrive1.getEncoder();
+    leftEncoder2 = leftDrive2.getEncoder();
+    leftEncoder3 = leftDrive3.getEncoder();
+    //        Right Drive Encoders
+    rightEncoder1 = rightDrive1.getEncoder();
+    rightEncoder2 = rightDrive2.getEncoder();
+    rightEncoder3 = rightDrive3.getEncoder();
+
+    /*    Restore Factory Defaults */
+    //      leftDrive Restore
+    leftDrive1.restoreFactoryDefaults();
+    leftDrive2.restoreFactoryDefaults();
+    leftDrive3.restoreFactoryDefaults();
+    //      rightDrive Restore
+    rightDrive1.restoreFactoryDefaults();
+    rightDrive2.restoreFactoryDefaults();
+    rightDrive3.restoreFactoryDefaults();
 
     /*    Motor Groupings */
     //      Sets leftDrive motors to follow leftDrive1
