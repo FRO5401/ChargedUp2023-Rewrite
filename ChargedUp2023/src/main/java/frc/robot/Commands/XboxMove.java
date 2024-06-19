@@ -43,7 +43,7 @@ public class XboxMove extends Command {
     boolean stop = driver.getLeftBumper();
 
     // if stopped
-    double percent;
+    double percent = fullPower;
     if (stop){
       percent = noPower;
     }
