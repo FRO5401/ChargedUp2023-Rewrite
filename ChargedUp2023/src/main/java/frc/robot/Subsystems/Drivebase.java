@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
 
 public class Drivebase extends SubsystemBase {
   /*  Declaring Variables */
@@ -38,13 +39,13 @@ public class Drivebase extends SubsystemBase {
     /*    Initializing Variables */
     /*      Initializing CANSparkMaxs */
     //        Left Drive Motors
-    leftDrive1 = new CANSparkMax(0, MotorType.kBrushless);
-    leftDrive2 = new CANSparkMax(0, MotorType.kBrushless);
-    leftDrive3 = new CANSparkMax(0, MotorType.kBrushless);
+    leftDrive1 = new CANSparkMax(DriveConstants.LEFT_MOTOR_1, MotorType.kBrushless);
+    leftDrive2 = new CANSparkMax(DriveConstants.LEFT_MOTOR_2, MotorType.kBrushless);
+    leftDrive3 = new CANSparkMax(DriveConstants.LEFT_MOTOR_3, MotorType.kBrushless);
     //        Right Drive Motors
-    rightDrive1 = new CANSparkMax(0, MotorType.kBrushless);
-    rightDrive2 = new CANSparkMax(0, MotorType.kBrushless);
-    rightDrive3 = new CANSparkMax(0, MotorType.kBrushless);
+    rightDrive1 = new CANSparkMax(DriveConstants.RIGHT_MOTOR_1, MotorType.kBrushless);
+    rightDrive2 = new CANSparkMax(DriveConstants.RIGHT_MOTOR_2, MotorType.kBrushless);
+    rightDrive3 = new CANSparkMax(DriveConstants.RIGHT_MOTOR_3, MotorType.kBrushless);
 
     /*      Initializing Encoders */
     //        Left Drive Encoders
