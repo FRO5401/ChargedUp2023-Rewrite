@@ -7,7 +7,7 @@ package frc.robot.Subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.CompressorConstants;
+import frc.robot.Constants.PneumaticsConstants;
 
 public class Compresor extends SubsystemBase {
   /*  Initializing Variables */
@@ -16,7 +16,7 @@ public class Compresor extends SubsystemBase {
 
   /** Creates a new Compresor. */
   public Compresor() {
-    compressor = new Compressor(CompressorConstants.COMPRESSOR_ID, PneumaticsModuleType.CTREPCM);
+    compressor = new Compressor(PneumaticsConstants.CTREPCM_ID, PneumaticsModuleType.CTREPCM);
   }
   public void enable(){
     compressor.enableDigital();
