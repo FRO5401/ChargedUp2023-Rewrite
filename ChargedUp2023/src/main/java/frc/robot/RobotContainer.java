@@ -7,15 +7,22 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Commands.ToggleClaw;
 import frc.robot.Commands.ToggleCompressor;
+import frc.robot.Subsystems.Claw;
 import frc.robot.Subsystems.Compresor;
 import frc.robot.Commands.XboxMove;
 import frc.robot.Subsystems.Drivebase;
 
 public class RobotContainer {
+  /* Variables */
+  // Controllers
+  CommandXboxController driver = Controls.driver;
   CommandXboxController operator = Controls.operator;
+  // Subsystems
   Compresor compresor = new Compresor();
   Drivebase drivebase = new Drivebase();
+  Claw claw = new Claw();
 
   public RobotContainer() {
     drivebase.setDefaultCommand(new XboxMove(drivebase));
@@ -24,6 +31,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     operator.x().onTrue(new ToggleCompressor(compresor));
+    operator.y().onTrue(new ToggleClaw(claw));
   }
 
   public Command getAutonomousCommand() {
