@@ -31,15 +31,17 @@ public final class Constants {
     }
     
     public static class ClawConstants{
-        
+        public static final int LEFT_CLAW_CHANNEL = 1;
+        public static final int RIGHT_CLAW_CHANNEL = 2;
     }
     
     public static class LEDConstants{
         
     }
 
-    public static class CompressorConstants{
-        //compressor id
-        public static final int COMPRESSOR_ID = 0;
+    public static class PneumaticsConstants{
+
+        public static final int CTREPCM_ID = 0;
+        public static final int GEARSHIFTER_CHANNEL = 0;
     }
 }
