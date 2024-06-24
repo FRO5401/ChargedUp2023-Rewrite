@@ -39,8 +39,8 @@ public final class Constants {
         
     }
 
-    public static class PneumaticsConstants{
 
+    public static class PneumaticsConstants{
         public static final int CTREPCM_ID = 0;
         public static final int GEARSHIFTER_CHANNEL = 0;
     }

@@ -11,8 +11,11 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 //    WPI
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 //    Robot
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.PneumaticsConstants;
 
 public class Drivebase extends SubsystemBase {
   /*  Declaring Variables */
@@ -36,6 +39,10 @@ public class Drivebase extends SubsystemBase {
   private RelativeEncoder rightEncoder2;
   private RelativeEncoder rightEncoder3;
 
+  /*    Soleniods */
+  private Solenoid gearShifter;
+  boolean isHighGear;
+
   /** Creates a new Drivebase. */
   public Drivebase() {
     /*    Initializing Variables */
@@ -58,6 +65,12 @@ public class Drivebase extends SubsystemBase {
     rightEncoder1 = rightDrive1.getEncoder();
     rightEncoder2 = rightDrive2.getEncoder();
     rightEncoder3 = rightDrive3.getEncoder();
+
+    /*      Solenoid */
+    gearShifter = new Solenoid(PneumaticsConstants.CTREPCM_ID, 
+        PneumaticsModuleType.CTREPCM, 
+        PneumaticsConstants.GEARSHIFTER_CHANNEL);
+    isHighGear = false;
 
     /*    Restore Factory Defaults */
     //      leftDrive Restore
@@ -91,6 +104,11 @@ public class Drivebase extends SubsystemBase {
     //    Sets speeds of motors
     leftDrive1.set(left);
     rightDrive1.set(right);
+  }
+
+  public void invertGear(){
+    isHighGear = !isHighGear;
+    gearShifter.set(isHighGear);
   }
 
   @Override
