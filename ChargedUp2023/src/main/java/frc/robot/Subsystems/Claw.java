@@ -33,6 +33,7 @@ public class Claw extends SubsystemBase {
     //        Right side
     rightClaw = new Solenoid(PneumaticsConstants.CTREPCM_ID, 
         PneumaticsModuleType.CTREPCM, ClawConstants.RIGHT_CLAW_CHANNEL);
+        
     /*      Positions */
     //        Soleniod open position
     open = true;

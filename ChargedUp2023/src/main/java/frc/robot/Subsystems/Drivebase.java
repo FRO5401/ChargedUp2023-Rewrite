@@ -49,7 +49,7 @@ public class Drivebase extends SubsystemBase {
     rightDrive2 = new CANSparkMax(DriveConstants.RIGHT_MOTOR_2, MotorType.kBrushless);
     rightDrive3 = new CANSparkMax(DriveConstants.RIGHT_MOTOR_3, MotorType.kBrushless);
 
-    /*      Initializing Encoders */
+    /*      Encoders */
     //        Left Drive Encoders
     leftEncoder1 = leftDrive1.getEncoder();
     leftEncoder2 = leftDrive2.getEncoder();
