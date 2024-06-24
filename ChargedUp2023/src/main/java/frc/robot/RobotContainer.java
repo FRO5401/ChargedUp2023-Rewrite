@@ -32,10 +32,10 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
+
     operator.x().onTrue(new ToggleCompressor(compresor));
     operator.y().onTrue(new ToggleClaw(claw));
-    driver.start().onTrue(new ToggleGear(drivebase));
-
+    
     driver.start().onTrue(new ToggleGear(drivebase));
     
   }
