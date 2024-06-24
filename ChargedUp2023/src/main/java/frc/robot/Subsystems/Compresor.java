@@ -10,23 +10,29 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PneumaticsConstants;
 
 public class Compresor extends SubsystemBase {
-  /*  Initializing Variables */
+  /*  Declaring Variables */
   //    Compressor 
   private Compressor compressor;
 
   /** Creates a new Compresor. */
   public Compresor() {
+    /*    Initializing Variables */
+    //      Compressor
     compressor = new Compressor(PneumaticsConstants.CTREPCM_ID, PneumaticsModuleType.CTREPCM);
   }
+  //  Enables the compressor
   public void enable(){
     compressor.enableDigital();
   }
+  //  Disables the compressor
   public void disable(){
     compressor.disable();
   }
+  //  Returns if the compressor is enabled ot disabled
   public boolean getCompressor(){
     return compressor.isEnabled();
   }
+  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

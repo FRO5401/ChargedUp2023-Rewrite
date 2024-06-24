@@ -24,7 +24,7 @@ public class ToggleClaw extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!claw.getState()){
+    if (!claw.getLeftState()){
       claw.open();
     }
     else {

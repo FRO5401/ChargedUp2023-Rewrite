@@ -12,31 +12,48 @@ import frc.robot.Constants.PneumaticsConstants;
 import frc.robot.Constants.ClawConstants;
 
 public class Claw extends SubsystemBase {
-  /*  Creating Variables */
+  /*  Declaring Variables */
   /*    Solenoids */
   private Solenoid leftClaw;
   private Solenoid rightClaw;
+  /*    Claw Position */
+  private boolean open;
+  private boolean close;
 
   /** Creates a new Claw. */
   public Claw() {
+    /*    Initializing Variables */
+    /*      Soleniods */
+    //        Left side
     leftClaw = new Solenoid(PneumaticsConstants.CTREPCM_ID, 
-        PneumaticsModuleType.CTREPCM, 
-        ClawConstants.LEFT_CLAW_CHANNEL);
+        PneumaticsModuleType.CTREPCM, ClawConstants.LEFT_CLAW_CHANNEL);
+    //        Right side
     rightClaw = new Solenoid(PneumaticsConstants.CTREPCM_ID, 
-        PneumaticsModuleType.CTREPCM, 
-        ClawConstants.RIGHT_CLAW_CHANNEL);
+        PneumaticsModuleType.CTREPCM, ClawConstants.RIGHT_CLAW_CHANNEL);
+    /*      Positions */
+    //        Soleniod open position
+    open = true;
+    //        Soleniod close position
+    close = false;
     
   }
+  //  Extends both soleniods to open the claw
   public void open(){
-    leftClaw.set(true);
-    rightClaw.set(true);
+    leftClaw.set(open);
+    rightClaw.set(open);
   }
+  //  Retracts both soleniods to open the claw
   public void close(){
-    leftClaw.set(false);
-    rightClaw.set(false);
+    leftClaw.set(close);
+    rightClaw.set(close);
   }
-  public boolean getState(){
+  //  Return if the left Claw is Extended or Retracted
+  public boolean getLeftState(){
     return leftClaw.get();
+  }
+  //  Return if the right Claw is Extended or Retracted
+  public boolean getRightState(){
+    return rightClaw.get();
   }
 
   @Override
