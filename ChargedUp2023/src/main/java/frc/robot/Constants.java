@@ -27,7 +27,9 @@ public final class Constants {
     }
     
     public static class ArmConstants{
-        
+        public static final int SHOULDER_Left_ID = 8;
+        public static final int SHOULDER_Right_ID = 9;
+        public static final int TELESCOPE_MOTOR_ID = 7;
     }
     
     public static class ClawConstants{
