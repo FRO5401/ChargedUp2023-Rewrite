@@ -16,6 +16,7 @@ import frc.robot.Subsystems.Claw;
 import frc.robot.Subsystems.Compresor;
 import frc.robot.Commands.XboxMove;
 import frc.robot.Commands.Lights.Rainbow;
+import frc.robot.Commands.Lights.SolidColor;
 import frc.robot.Subsystems.Drivebase;
 import frc.robot.Subsystems.LEDLights;
 
@@ -49,7 +50,12 @@ public class RobotContainer {
     //    Driver
     driver.start().onTrue(new ToggleGear(drivebase));
     driver.a().onTrue(new Rainbow(ledLights));
-    
+    driver.b().onTrue(new SolidColor(ledLights, "RED"));
+    driver.y().onTrue(new SolidColor(ledLights, "ORANGE"));
+    driver.x().onTrue(new SolidColor(ledLights, "YELLOW"));
+    driver.povLeft().onTrue(new SolidColor(ledLights, "GREEN"));
+    driver.povUp().onTrue(new SolidColor(ledLights, "BLUE"));
+    driver.povRight().onTrue(new SolidColor(ledLights, "PURPLE"));
   }
 
   public Command getAutonomousCommand() {

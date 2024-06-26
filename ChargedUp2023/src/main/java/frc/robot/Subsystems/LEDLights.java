@@ -37,21 +37,15 @@ public class LEDLights extends SubsystemBase {
   //  Sets LED color by RGB
   public void setRGB(int r, int g, int b){
     for (int i = 0; i < LEDBuffer.getLength(); i++){
-
       LEDBuffer.setRGB(i, r, g, b);
     }
-
     lightLEDs.setData(LEDBuffer);
   }
   //  Creates a rainbow on the LEDs
   public void rainbow(){
-
     for (int i = 0; i < LEDBuffer.getLength(); i++){
-            
       var hue = (firstPixel + ((i * 180 / LEDBuffer.getLength())) % 180);
-      
       LEDBuffer.setHSV(i, hue, ColorConstants.RAINBOW_SAT, ColorConstants.RAINBOW_VAL);
-
       lightLEDs.setData(LEDBuffer);
     }
 
@@ -60,7 +54,6 @@ public class LEDLights extends SubsystemBase {
   }
 
   public void setData(){
-
     lightLEDs.setData(LEDBuffer);
   }
 
