@@ -61,7 +61,6 @@ public class Arm extends SubsystemBase {
 
   public void telescopeArm(double power){
     telescopeMotor.set(power);
-    shoulderLeft.set(power);
   }
 
   public double getTelescopePosition(){
