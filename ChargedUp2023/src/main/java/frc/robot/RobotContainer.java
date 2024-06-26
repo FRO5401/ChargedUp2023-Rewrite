@@ -15,7 +15,9 @@ import frc.robot.Subsystems.Arm;
 import frc.robot.Subsystems.Claw;
 import frc.robot.Subsystems.Compresor;
 import frc.robot.Commands.XboxMove;
+import frc.robot.Commands.Lights.Rainbow;
 import frc.robot.Subsystems.Drivebase;
+import frc.robot.Subsystems.LEDLights;
 
 public class RobotContainer {
   /*  Variables */
@@ -28,6 +30,7 @@ public class RobotContainer {
   Drivebase drivebase = new Drivebase();
   Claw claw = new Claw();
   Arm arm = new Arm();
+  LEDLights ledLights = new LEDLights();
 
   public RobotContainer() {
     /* Setting Default Commands */
@@ -45,6 +48,7 @@ public class RobotContainer {
     operator.y().onTrue(new ToggleClaw(claw));
     //    Driver
     driver.start().onTrue(new ToggleGear(drivebase));
+    driver.a().onTrue(new Rainbow(ledLights));
     
   }
 
