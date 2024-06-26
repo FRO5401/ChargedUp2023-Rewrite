@@ -40,14 +40,14 @@ public class LEDLights extends SubsystemBase {
     for (int i = 0; i < LEDBuffer.getLength(); i++){
       LEDBuffer.setRGB(i, r, g, b);
     }
-    lightLEDs.setData(LEDBuffer);
+    //lightLEDs.setData(LEDBuffer);
   }
   //  Sets LED color by HEX code
   public void setHex(Color color){
     for (int i = 0; i < LEDBuffer.getLength(); i++){
       LEDBuffer.setLED(i, color);
     }
-    lightLEDs.setData(LEDBuffer);
+    //lightLEDs.setData(LEDBuffer);
   }
   //  Creates a rainbow on the LEDs
   public void rainbow(){
