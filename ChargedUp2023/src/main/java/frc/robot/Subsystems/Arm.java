@@ -30,11 +30,11 @@ public class Arm extends SubsystemBase {
 
   /** Creates a new Arm. */
   public Arm() {
-    /*  Declaring Variables */
+    /*  Initalizing Variables */
     /*    CANSparkMaxs */
     //      Shoulder Motors
-    shoulderLeft = new CANSparkMax(ArmConstants.SHOULDER_Left_ID, MotorType.kBrushless);
-    shoulderRight = new CANSparkMax(ArmConstants.SHOULDER_Right_ID, MotorType.kBrushless);
+    shoulderLeft = new CANSparkMax(ArmConstants.SHOULDER_LEFT_ID, MotorType.kBrushless);
+    shoulderRight = new CANSparkMax(ArmConstants.SHOULDER_RIGHT_ID, MotorType.kBrushless);
     //      Telescoping Arm Motor
     telescopeMotor = new CANSparkMax(ArmConstants.TELESCOPE_MOTOR_ID, MotorType.kBrushless);
 
@@ -45,11 +45,13 @@ public class Arm extends SubsystemBase {
     //      Telescoping Arm Motor
     telescopeEncoder = telescopeMotor.getEncoder();
 
-    //      Setting motor commands
+    //  Motor direction
     shoulderRight.setInverted(true);
-    //shoulderRight.follow(shoulderLeft);
-    shoulderLeft.setIdleMode(IdleMode.kBrake);
 
+    //  Set Idle Mode of Motors
+    shoulderLeft.setIdleMode(IdleMode.kBrake);
+    shoulderRight.setIdleMode(IdleMode.kBrake);
+    telescopeMotor.setIdleMode(IdleMode.kBrake);
   }
 
   public void rotateArm(double power){
@@ -62,6 +64,13 @@ public class Arm extends SubsystemBase {
     shoulderLeft.set(power);
   }
 
+  public double getTelescopePosition(){
+    return telescopeEncoder.getPosition();
+  }
+
+  public double getShoulderRightPosition(){
+    return shoulderEncoderRight.getPosition();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

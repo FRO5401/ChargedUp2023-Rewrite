@@ -48,13 +48,13 @@ public class Drivebase extends SubsystemBase {
     /*    Initializing Variables */
     /*      CANSparkMaxs */
     //        Left Drive Motors
-    leftDrive1 = new CANSparkMax(DriveConstants.LEFT_MOTOR_1, MotorType.kBrushless);
-    leftDrive2 = new CANSparkMax(DriveConstants.LEFT_MOTOR_2, MotorType.kBrushless);
-    leftDrive3 = new CANSparkMax(DriveConstants.LEFT_MOTOR_3, MotorType.kBrushless);
+    leftDrive1 = new CANSparkMax(DriveConstants.LEFT_DRIVE_1_ID, MotorType.kBrushless);
+    leftDrive2 = new CANSparkMax(DriveConstants.LEFT_DRIVE_2_ID, MotorType.kBrushless);
+    leftDrive3 = new CANSparkMax(DriveConstants.LEFT_DRIVE_3_ID, MotorType.kBrushless);
     //        Right Drive Motors
-    rightDrive1 = new CANSparkMax(DriveConstants.RIGHT_MOTOR_1, MotorType.kBrushless);
-    rightDrive2 = new CANSparkMax(DriveConstants.RIGHT_MOTOR_2, MotorType.kBrushless);
-    rightDrive3 = new CANSparkMax(DriveConstants.RIGHT_MOTOR_3, MotorType.kBrushless);
+    rightDrive1 = new CANSparkMax(DriveConstants.RIGHT_DRIVE_1_ID, MotorType.kBrushless);
+    rightDrive2 = new CANSparkMax(DriveConstants.RIGHT_DRIVE_2_ID, MotorType.kBrushless);
+    rightDrive3 = new CANSparkMax(DriveConstants.RIGHT_DRIVE_3_ID, MotorType.kBrushless);
 
     /*      Encoders */
     //        Left Drive Encoders
@@ -88,7 +88,7 @@ public class Drivebase extends SubsystemBase {
     leftDrive3.follow(leftDrive1);
     //      Set rightDrive motors to follow rightDrive1
     rightDrive2.follow(rightDrive1);
-    rightDrive3.follow(rightDrive3);
+    rightDrive3.follow(rightDrive1);
 
     //    Inverts left motors direction 
     leftDrive1.setInverted(true);

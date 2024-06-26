@@ -7,6 +7,7 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Controls;
+import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.MotorConstants;
 import frc.robot.Subsystems.Arm;
 
@@ -37,6 +38,17 @@ public class MoveArm extends Command {
     /* Using Arm Functions */
     arm.telescopeArm(telescopePower);
     arm.rotateArm(rotationPower);
+
+    /* So then you dont extend past the telescopearm max or minimum position
+    //  I dont know if this works so...
+    if (arm.getTelescopePosition() > ArmConstants.TELESCOPE_MAX_EXTENSION){
+      arm.telescopeArm(MotorConstants.NO_POWER_PERCENT);
+    } else if( arm.getTelescopePosition() < ArmConstants.TELESCOPE_MIN_EXTENSION){
+      arm.telescopeArm(MotorConstants.NO_POWER_PERCENT);
+    } else {
+      arm.telescopeArm(telescopePower);
+    }
+    */
   }
 
   // Called once the command ends or is interrupted.

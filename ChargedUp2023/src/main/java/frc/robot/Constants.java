@@ -10,21 +10,27 @@ public final class Constants {
 
     public static class DriveConstants{
         // Motor IDs
-        public static final int LEFT_MOTOR_1 = 2;
-        public static final int LEFT_MOTOR_2 = 4;
-        public static final int LEFT_MOTOR_3 = 6;
-        public static final int RIGHT_MOTOR_1 = 1;
-        public static final int RIGHT_MOTOR_2 = 3;
-        public static final int RIGHT_MOTOR_3 = 5;
+        public static final int LEFT_DRIVE_1_ID = 2;
+        public static final int LEFT_DRIVE_2_ID = 4;
+        public static final int LEFT_DRIVE_3_ID = 6;
+        public static final int RIGHT_DRIVE_1_ID = 1;
+        public static final int RIGHT_DRIVE_2_ID = 3;
+        public static final int RIGHT_DRIVE_3_ID = 5;
 
         // Precision Percent
         public static final double PRECISION_PERCENT = 0.3;
     }
     
     public static class ArmConstants{
-        public static final int SHOULDER_Left_ID = 8;
-        public static final int SHOULDER_Right_ID = 9;
+        public static final int SHOULDER_LEFT_ID = 8;
+        public static final int SHOULDER_RIGHT_ID = 9;
         public static final int TELESCOPE_MOTOR_ID = 7;
+
+        public static final double TELESCOPE_MAX_EXTENSION = 0.0;
+        public static final double TELESCOPE_MIN_EXTENSION = 0.0;
+
+        public static final double SHOULDER_MAX_ROTATION = 0.0;
+        public static final double SHOULDER_MIN_ROTATION = 0.0;
     }
     
     public static class ClawConstants{
