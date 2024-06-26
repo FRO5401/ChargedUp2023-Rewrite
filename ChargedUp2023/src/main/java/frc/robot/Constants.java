@@ -19,6 +19,9 @@ public final class Constants {
 
         // Precision Percent
         public static final double PRECISION_PERCENT = 0.3;
+
+        // Motor Current Limit
+        public static final int MOTOR_CURRENT_LIMIT = 20;
     }
     
     public static class ArmConstants{

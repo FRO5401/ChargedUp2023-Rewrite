@@ -6,6 +6,7 @@ package frc.robot.Subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
 import frc.robot.Constants.LEDConstants.ColorConstants;
@@ -38,6 +39,13 @@ public class LEDLights extends SubsystemBase {
   public void setRGB(int r, int g, int b){
     for (int i = 0; i < LEDBuffer.getLength(); i++){
       LEDBuffer.setRGB(i, r, g, b);
+    }
+    lightLEDs.setData(LEDBuffer);
+  }
+  //  Sets LED color by HEX code
+  public void setHex(Color color){
+    for (int i = 0; i < LEDBuffer.getLength(); i++){
+      LEDBuffer.setLED(i, color);
     }
     lightLEDs.setData(LEDBuffer);
   }

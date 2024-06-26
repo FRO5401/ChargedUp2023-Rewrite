@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -50,12 +51,12 @@ public class RobotContainer {
     //    Driver
     driver.start().onTrue(new ToggleGear(drivebase));
     driver.a().onTrue(new Rainbow(ledLights));
-    driver.b().onTrue(new SolidColor(ledLights, "RED"));
-    driver.y().onTrue(new SolidColor(ledLights, "ORANGE"));
-    driver.x().onTrue(new SolidColor(ledLights, "YELLOW"));
-    driver.povLeft().onTrue(new SolidColor(ledLights, "GREEN"));
-    driver.povUp().onTrue(new SolidColor(ledLights, "BLUE"));
-    driver.povRight().onTrue(new SolidColor(ledLights, "PURPLE"));
+    driver.b().onTrue(new SolidColor(ledLights, Color.kRed));
+    driver.y().onTrue(new SolidColor(ledLights, Color.kOrange));
+    driver.x().onTrue(new SolidColor(ledLights, Color.kYellow));
+    driver.povLeft().onTrue(new SolidColor(ledLights, Color.kGreen));
+    driver.povUp().onTrue(new SolidColor(ledLights, Color.kBlue));
+    driver.povRight().onTrue(new SolidColor(ledLights, Color.kPurple));
   }
 
   public Command getAutonomousCommand() {
