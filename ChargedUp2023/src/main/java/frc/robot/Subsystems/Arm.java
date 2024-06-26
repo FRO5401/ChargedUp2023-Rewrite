@@ -6,6 +6,7 @@ package frc.robot.Subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -22,8 +23,8 @@ public class Arm extends SubsystemBase {
 
   /*    Encoders */
   //      Shoulder Encoders
-  private RelativeEncoder shoulderEncoder1;
-  private RelativeEncoder shoulderEncoder2;
+  private RelativeEncoder shoulderEncoderLeft;
+  private RelativeEncoder shoulderEncoderRight;
   //      Telescoping Arm Encoder
   private RelativeEncoder telescopeEncoder;
 
@@ -37,6 +38,28 @@ public class Arm extends SubsystemBase {
     //      Telescoping Arm Motor
     telescopeMotor = new CANSparkMax(ArmConstants.TELESCOPE_MOTOR_ID, MotorType.kBrushless);
 
+    /*    Encoders  */
+    //      Shoulder Motors
+    shoulderEncoderLeft = shoulderLeft.getEncoder();
+    shoulderEncoderRight = shoulderRight.getEncoder();
+    //      Telescoping Arm Motor
+    telescopeEncoder = telescopeMotor.getEncoder();
+
+    //      Setting motor commands
+    shoulderRight.setInverted(true);
+    //shoulderRight.follow(shoulderLeft);
+    shoulderLeft.setIdleMode(IdleMode.kBrake);
+
+  }
+
+  public void rotateArm(double power){
+    shoulderRight.set(power);
+    shoulderLeft.set(power);
+  }
+
+  public void telescopeArm(double power){
+    telescopeMotor.set(power);
+    shoulderLeft.set(power);
   }
 
   @Override
