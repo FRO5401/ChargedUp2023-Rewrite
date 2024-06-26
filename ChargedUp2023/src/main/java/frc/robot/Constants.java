@@ -22,13 +22,16 @@ public final class Constants {
     }
     
     public static class ArmConstants{
+        //  Motor IDs
         public static final int SHOULDER_LEFT_ID = 8;
         public static final int SHOULDER_RIGHT_ID = 9;
         public static final int TELESCOPE_MOTOR_ID = 7;
 
+        //  Extensions 
         public static final double TELESCOPE_MAX_EXTENSION = 0.0;
         public static final double TELESCOPE_MIN_EXTENSION = 0.0;
 
+        //  Rotations
         public static final double SHOULDER_MAX_ROTATION = 0.0;
         public static final double SHOULDER_MIN_ROTATION = 0.0;
     }
@@ -38,9 +41,20 @@ public final class Constants {
         public static final int LEFT_CLAW_CHANNEL = 1;
         public static final int RIGHT_CLAW_CHANNEL = 2;
     }
-    
+    /*  LED Constants */
     public static class LEDConstants{
-        
+        //  LED PWM port
+        public static final int LED_PWM_PORT = 0;
+        //  LED strip length
+        public static final int LED_LENGTH = 304;
+
+        /*  LED Colors Constants */
+        public static class ColorConstants{
+            //  HSV Saturation
+            public static final int RAINBOW_SAT = 255;
+            //  HSV Value
+            public static final int RAINBOW_VAL = 128;
+        }
     }
 
     public static class PneumaticsConstants{
