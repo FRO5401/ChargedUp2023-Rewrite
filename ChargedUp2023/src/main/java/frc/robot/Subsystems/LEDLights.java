@@ -54,7 +54,6 @@ public class LEDLights extends SubsystemBase {
     for (int i = 0; i < LEDBuffer.getLength(); i++){
       var hue = (firstPixel + ((i * 180 / LEDBuffer.getLength())) % 180);
       LEDBuffer.setHSV(i, hue, ColorConstants.RAINBOW_SAT, ColorConstants.RAINBOW_VAL);
-      lightLEDs.setData(LEDBuffer);
     }
 
     firstPixel += 3;
