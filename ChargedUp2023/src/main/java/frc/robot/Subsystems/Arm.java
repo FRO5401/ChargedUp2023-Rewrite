@@ -23,10 +23,10 @@ public class Arm extends SubsystemBase {
 
   /*    Encoders */
   //      Shoulder Encoders
-  private RelativeEncoder shoulderEncoderLeft;
-  private RelativeEncoder shoulderEncoderRight;
+  public RelativeEncoder shoulderEncoderLeft;
+  public RelativeEncoder shoulderEncoderRight;
   //      Telescoping Arm Encoder
-  private RelativeEncoder telescopeEncoder;
+  public RelativeEncoder telescopeEncoder;
 
   /** Creates a new Arm. */
   public Arm() {

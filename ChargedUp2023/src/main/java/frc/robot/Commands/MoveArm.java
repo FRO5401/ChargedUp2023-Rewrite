@@ -39,16 +39,17 @@ public class MoveArm extends Command {
     arm.telescopeArm(telescopePower);
     arm.rotateArm(rotationPower);
 
-    /* So then you dont extend past the telescopearm max or minimum position
-    //  I dont know if this works so...
+    /* So then you dont extend past the telescopearm max or minimum position  
     if (arm.getTelescopePosition() > ArmConstants.TELESCOPE_MAX_EXTENSION){
       arm.telescopeArm(MotorConstants.NO_POWER_PERCENT);
-    } else if( arm.getTelescopePosition() < ArmConstants.TELESCOPE_MIN_EXTENSION){
+    } 
+    else if( arm.getTelescopePosition() < ArmConstants.TELESCOPE_MIN_EXTENSION){
       arm.telescopeArm(MotorConstants.NO_POWER_PERCENT);
-    } else {
+    } 
+    else {
       arm.telescopeArm(telescopePower);
-    }
-    */
+    }*/
+  
   }
 
   // Called once the command ends or is interrupted.

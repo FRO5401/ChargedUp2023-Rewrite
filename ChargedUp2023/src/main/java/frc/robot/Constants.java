@@ -26,11 +26,11 @@ public final class Constants {
         public static final int SHOULDER_RIGHT_ID = 9;
         public static final int TELESCOPE_MOTOR_ID = 7;
 
-        public static final double TELESCOPE_MAX_EXTENSION = 0.0;
-        public static final double TELESCOPE_MIN_EXTENSION = 0.0;
+        public static final int TELESCOPE_MAX_EXTENSION = 0;
+        public static final int TELESCOPE_MIN_EXTENSION = 0;
 
-        public static final double SHOULDER_MAX_ROTATION = 0.0;
-        public static final double SHOULDER_MIN_ROTATION = 0.0;
+        public static final int SHOULDER_MAX_ROTATION = 0;
+        public static final int SHOULDER_MIN_ROTATION = 0;
     }
     
     public static class ClawConstants{
