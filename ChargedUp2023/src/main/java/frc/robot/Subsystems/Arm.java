@@ -6,6 +6,7 @@ package frc.robot.Subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -29,6 +30,11 @@ public class Arm extends SubsystemBase {
   //      Telescoping Arm Encoder
   private RelativeEncoder telescopeEncoder;
 
+  /*    PID */
+  //      Shoulder PID Controller
+  private SparkPIDController shoulderRightPID;
+  private SparkPIDController shoulderLeftPID;
+
   /** Creates a new Arm. */
   public Arm() {
     /*  Initalizing Variables */
@@ -45,6 +51,11 @@ public class Arm extends SubsystemBase {
     shoulderEncoderRight = shoulderRight.getEncoder();
     //      Telescoping Arm Motor
     telescopeEncoder = telescopeMotor.getEncoder();
+
+    /*    PID */
+    //      Shoulder PID
+    shoulderLeftPID = shoulderLeft.getPIDController();
+    shoulderRightPID = shoulderRight.getPIDController();
 
     //  Motor direction
     shoulderRight.setInverted(true);
