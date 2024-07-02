@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -15,7 +16,10 @@ import frc.robot.Subsystems.Arm;
 import frc.robot.Subsystems.Claw;
 import frc.robot.Subsystems.Compresor;
 import frc.robot.Commands.XboxMove;
+import frc.robot.Commands.Lights.Rainbow;
+import frc.robot.Commands.Lights.SolidColor;
 import frc.robot.Subsystems.Drivebase;
+import frc.robot.Subsystems.LEDLights;
 
 public class RobotContainer {
   /*  Variables */
@@ -28,6 +32,7 @@ public class RobotContainer {
   Drivebase drivebase = new Drivebase();
   Claw claw = new Claw();
   Arm arm = new Arm();
+  LEDLights ledLights = new LEDLights();
 
   public RobotContainer() {
     /* Setting Default Commands */
@@ -45,7 +50,13 @@ public class RobotContainer {
     operator.y().onTrue(new ToggleClaw(claw));
     //    Driver
     driver.start().onTrue(new ToggleGear(drivebase));
-    
+    driver.a().onTrue(new Rainbow(ledLights));
+    driver.b().onTrue(new SolidColor(ledLights, Color.kRed));
+    driver.y().onTrue(new SolidColor(ledLights, Color.kOrange));
+    driver.x().onTrue(new SolidColor(ledLights, Color.kYellow));
+    driver.povLeft().onTrue(new SolidColor(ledLights, Color.kGreen));
+    driver.povUp().onTrue(new SolidColor(ledLights, Color.kBlue));
+    driver.povRight().onTrue(new SolidColor(ledLights, Color.kPurple));
   }
 
   public Command getAutonomousCommand() {

@@ -82,6 +82,31 @@ public class Drivebase extends SubsystemBase {
     rightDrive2.restoreFactoryDefaults();
     rightDrive3.restoreFactoryDefaults();
 
+    //    Inverts left motors direction 
+    leftDrive1.setInverted(true);
+    leftDrive2.setInverted(true);
+    leftDrive3.setInverted(true);
+
+    /*  Setting Idle Mode */
+    //    Left Drive
+    leftDrive1.setIdleMode(IdleMode.kBrake);
+    leftDrive2.setIdleMode(IdleMode.kBrake);
+    leftDrive3.setIdleMode(IdleMode.kBrake);
+    //    Right Drive
+    rightDrive1.setIdleMode(IdleMode.kBrake);
+    rightDrive2.setIdleMode(IdleMode.kBrake);
+    rightDrive3.setIdleMode(IdleMode.kBrake);
+
+     /*  Setting Current Limits */
+    //    Left Drive
+    leftDrive1.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
+    leftDrive2.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
+    leftDrive3.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
+    //    Right Drive
+    rightDrive1.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
+    rightDrive2.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
+    rightDrive3.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
+
     /*    Motor Groupings */
     //      Sets leftDrive motors to follow leftDrive1
     leftDrive2.follow(leftDrive1);
@@ -89,14 +114,6 @@ public class Drivebase extends SubsystemBase {
     //      Set rightDrive motors to follow rightDrive1
     rightDrive2.follow(rightDrive1);
     rightDrive3.follow(rightDrive1);
-
-    //    Inverts left motors direction 
-    leftDrive1.setInverted(true);
-
-    //    Sets Idle Mode of motors
-    leftDrive1.setIdleMode(IdleMode.kBrake);
-    rightDrive1.setIdleMode(IdleMode.kBrake);
-
 
   }
   //    move Command
