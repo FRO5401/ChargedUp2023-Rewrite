@@ -32,12 +32,12 @@ public final class Constants {
 
 
         //  Extensions 
-        public static final double TELESCOPE_MAX_EXTENSION = 0.0;
-        public static final double TELESCOPE_MIN_EXTENSION = 0.0;
+        public static final double TELESCOPE_MAX_EXTENSION = 50;
+        public static final double TELESCOPE_MIN_EXTENSION = 0;
 
         //  Rotations
-        public static final double SHOULDER_MAX_ROTATION = 0.0;
-        public static final double SHOULDER_MIN_ROTATION = 0.0;
+        public static final double SHOULDER_MAX_ROTATION = 58; //95!!
+        public static final double SHOULDER_MIN_ROTATION = -2;
 
     }
     
@@ -68,7 +68,7 @@ public final class Constants {
         public static final int GEARSHIFTER_CHANNEL = 0;
     }
 
-    public static class MotorConstants{
+    public static class MotionConstants{
         // Percentages
         public static final int FULL_POWER_PERCENT = 1;
         public static final int NO_POWER_PERCENT = 0;

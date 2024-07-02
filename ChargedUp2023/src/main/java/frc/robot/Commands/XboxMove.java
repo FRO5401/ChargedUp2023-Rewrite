@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Controls;
 import frc.robot.Constants.ControlConstants;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.MotorConstants;
+import frc.robot.Constants.MotionConstants;
 import frc.robot.Subsystems.Drivebase;
 
 public class XboxMove extends Command {
@@ -30,9 +30,9 @@ public class XboxMove extends Command {
   @Override
   public void execute() {
     //getting constant values
-    int fullPower = MotorConstants.FULL_POWER_PERCENT;
-    int noPower = MotorConstants.NO_POWER_PERCENT;
-    int negPower = MotorConstants.NEGATIVE_POWER;
+    int fullPower = MotionConstants.FULL_POWER_PERCENT;
+    int noPower = MotionConstants.NO_POWER_PERCENT;
+    int negPower = MotionConstants.NEGATIVE_POWER;
     double sensitivity = ControlConstants.CONTROLLER_SENSITIVITY;
     XboxController driver = Controls.xbox_driver;
 

@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Controls;
 import frc.robot.Constants.ArmConstants;
-import frc.robot.Constants.MotorConstants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.MotionConstants;
 import frc.robot.Subsystems.Arm;
 
 public class MoveArm extends Command {
@@ -33,22 +34,33 @@ public class MoveArm extends Command {
     XboxController operator = Controls.xbox_operator;
     // Controller Inputs
     double telescopePower = operator.getRightX();
-    double rotationPower = operator.getLeftY();
+    double rotationPower = DriveConstants.PRECISION_PERCENT * operator.getLeftY();
 
     /* Using Arm Functions */
-    arm.telescopeArm(telescopePower);
-    arm.rotateArm(rotationPower);
+    //arm.telescopeArm(telescopePower);
+    //arm.rotateArm(rotationPower);
 
-    /* So then you dont extend past the telescopearm max or minimum position  
-    if (arm.getTelescopePosition() > ArmConstants.TELESCOPE_MAX_EXTENSION){
-      arm.telescopeArm(MotorConstants.NO_POWER_PERCENT);
+    //  So then you dont extend past the telescopearm max or minimum position  
+    if (arm.getTelescopePosition() > ArmConstants.TELESCOPE_MAX_EXTENSION && telescopePower > 0){
+      arm.telescopeArm(MotionConstants.NO_POWER_PERCENT);
     } 
-    else if( arm.getTelescopePosition() < ArmConstants.TELESCOPE_MIN_EXTENSION){
-      arm.telescopeArm(MotorConstants.NO_POWER_PERCENT);
+    else if( arm.getTelescopePosition() < ArmConstants.TELESCOPE_MIN_EXTENSION && telescopePower < 0) {
+      arm.telescopeArm(MotionConstants.NO_POWER_PERCENT);
     } 
     else {
       arm.telescopeArm(telescopePower);
-    }*/
+    }
+
+    //  So then you dont extend past the telescopearm max or minimum position  
+    if (arm.getShoulderRightPosition() > ArmConstants.SHOULDER_MAX_ROTATION && rotationPower > 0){
+      arm.rotateArm(MotionConstants.NO_POWER_PERCENT);
+    } 
+    else if( arm.getShoulderRightPosition() < ArmConstants.SHOULDER_MIN_ROTATION && rotationPower < 0) {
+      arm.rotateArm(MotionConstants.NO_POWER_PERCENT);
+    } 
+    else {
+      arm.rotateArm(rotationPower);
+    }
   
   }
 
@@ -56,8 +68,8 @@ public class MoveArm extends Command {
   @Override
   public void end(boolean interrupted) {
     // Setting the motor speeds to 0 when interrupted
-    arm.telescopeArm(MotorConstants.NO_POWER_PERCENT);
-    arm.rotateArm(MotorConstants.NO_POWER_PERCENT);
+    arm.telescopeArm(MotionConstants.NO_POWER_PERCENT);
+    arm.rotateArm(MotionConstants.NO_POWER_PERCENT);
   }
 
   // Returns true when the command should end.
