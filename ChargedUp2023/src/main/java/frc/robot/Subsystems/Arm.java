@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 
@@ -23,10 +24,10 @@ public class Arm extends SubsystemBase {
 
   /*    Encoders */
   //      Shoulder Encoders
-  public RelativeEncoder shoulderEncoderLeft;
-  public RelativeEncoder shoulderEncoderRight;
+  private RelativeEncoder shoulderEncoderLeft;
+  private RelativeEncoder shoulderEncoderRight;
   //      Telescoping Arm Encoder
-  public RelativeEncoder telescopeEncoder;
+  private RelativeEncoder telescopeEncoder;
 
   /** Creates a new Arm. */
   public Arm() {
@@ -70,8 +71,17 @@ public class Arm extends SubsystemBase {
   public double getShoulderRightPosition(){
     return shoulderEncoderRight.getPosition();
   }
+
+  public double getShoulderLeftPosition(){
+    return shoulderEncoderLeft.getPosition();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    SmartDashboard.putNumber("Telescope Encoder Value", getTelescopePosition());
+    SmartDashboard.putNumber("Left Shoulder Encoder Value", getShoulderLeftPosition());
+    SmartDashboard.putNumber("Right Shoulder Encoder Value", getShoulderRightPosition());
+
   }
 }
