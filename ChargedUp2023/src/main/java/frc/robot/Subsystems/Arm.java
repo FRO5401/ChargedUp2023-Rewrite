@@ -7,6 +7,7 @@ package frc.robot.Subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -35,6 +36,11 @@ public class Arm extends SubsystemBase {
   //      Shoulder PID Controller
   private SparkPIDController shoulderRightPID;
   private SparkPIDController shoulderLeftPID;
+
+  double kP;
+  double kI;
+  double kD;
+
 
   /** Creates a new Arm. */
   public Arm() {
@@ -72,6 +78,24 @@ public class Arm extends SubsystemBase {
     shoulderLeft.setIdleMode(IdleMode.kBrake);
     shoulderRight.setIdleMode(IdleMode.kBrake);
     telescopeMotor.setIdleMode(IdleMode.kBrake);
+
+     
+    kP = 0;
+    kI = 0;
+    kD = 0;
+
+    shoulderLeftPID.setP(kP);
+    shoulderLeftPID.setI(kI);
+    shoulderLeftPID.setD(kD);
+    
+    shoulderRightPID.setP(kP);
+    shoulderRightPID.setI(kI);
+    shoulderRightPID.setD(kD);
+
+    SmartDashboard.putNumber("P Gain", kP);
+    SmartDashboard.putNumber("I Gain", kI);
+    SmartDashboard.putNumber("D Gain", kD);
+    
   }
 
   public void rotateArm(double power){
@@ -94,6 +118,20 @@ public class Arm extends SubsystemBase {
   public double getShoulderLeftPosition(){
     return shoulderEncoderLeft.getPosition();
   }
+  public void setPosition(double position){
+    shoulderLeftPID.setReference(position, ControlType.kPosition);
+    shoulderRightPID.setReference(position, ControlType.kPosition);
+  }
+
+  public void rightAngle(){
+    if(getShoulderLeftPosition() > 17.5){
+      shoulderLeft.set(-0.05);
+      shoulderRight.set(-0.05);
+    } else {
+      shoulderLeft.set(0.7);
+      shoulderRight.set(0.7);
+    }
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -101,6 +139,18 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("Telescope Encoder Value", getTelescopePosition());
     SmartDashboard.putNumber("Left Shoulder Encoder Value", getShoulderLeftPosition());
     SmartDashboard.putNumber("Right Shoulder Encoder Value", getShoulderRightPosition());
+    
+    double p = SmartDashboard.getNumber("P Gain", 0);
+    double i = SmartDashboard.getNumber("I Gain", 0);
+    double d = SmartDashboard.getNumber("D Gain", 0);
 
+    if((p != kP)) { shoulderRightPID.setP(p); kP = p; }
+    if((i != kI)) { shoulderRightPID.setI(i); kI = i; }
+    if((d != kD)) { shoulderRightPID.setD(d); kD = d; }
+
+    if((p != kP)) { shoulderLeftPID.setP(p); kP = p; }
+    if((i != kI)) { shoulderLeftPID.setI(i); kI = i; }
+    if((d != kD)) { shoulderLeftPID.setD(d); kD = d; }
+    
   }
 }

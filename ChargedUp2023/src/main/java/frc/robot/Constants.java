@@ -39,6 +39,12 @@ public final class Constants {
         public static final double SHOULDER_MAX_ROTATION = 58; //95!!
         public static final double SHOULDER_MIN_ROTATION = -2;
 
+        //  PID
+        public static final double kP = 0;
+        public static final double kI = 0;
+        public static final double kD = 0;
+
+
     }
     
     public static class ClawConstants{
