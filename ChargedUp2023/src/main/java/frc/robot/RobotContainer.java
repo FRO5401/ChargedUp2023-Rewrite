@@ -7,7 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.Commands.ToggleClaw;
+import frc.robot.Commands.ToggleCone;
+import frc.robot.Commands.ToggleCube;
+import frc.robot.Commands.OpenClaw;
 import frc.robot.Commands.ToggleCompressor;
 import frc.robot.Subsystems.Claw;
 import frc.robot.Subsystems.Compresor;
@@ -31,7 +33,9 @@ public class RobotContainer {
 
   private void configureBindings() {
     operator.x().onTrue(new ToggleCompressor(compresor));
-    operator.y().onTrue(new ToggleClaw(claw));
+    operator.y().onTrue(new ToggleCone(claw));
+    operator.b().onTrue(new ToggleCube(claw));
+    operator.a().onTrue(new OpenClaw(claw));
   }
 
   public Command getAutonomousCommand() {

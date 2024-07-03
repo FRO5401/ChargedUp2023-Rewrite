@@ -47,10 +47,16 @@ public class Claw extends SubsystemBase {
     rightClaw.set(open);
   }
   //  Retracts both soleniods to open the claw
-  public void close(){
+  public void ConeGrab(){
     leftClaw.set(close);
     rightClaw.set(close);
   }
+
+  public void CubeGrab(){
+    leftClaw.set(close);
+    rightClaw.set(open);
+  }
+
   //  Return if the left Claw is Extended or Retracted
   public boolean getLeftState(){
     return leftClaw.get();
