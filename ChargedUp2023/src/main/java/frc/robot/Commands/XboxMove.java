@@ -63,7 +63,7 @@ public class XboxMove extends Command {
     }
     // moving backward
     else if (throttle <= sensitivity && Math.abs(reverse) >= sensitivity){
-      drivebase.move(power*(fullPower-turn), power*(fullPower+turn));
+      drivebase.move(power*(fullPower+turn), power*(fullPower-turn));
     }
     // no movement
     else {
