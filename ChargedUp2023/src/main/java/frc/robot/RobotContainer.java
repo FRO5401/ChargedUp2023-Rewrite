@@ -49,7 +49,7 @@ public class RobotContainer {
     //    Operator
     operator.x().onTrue(new ToggleCompressor(compresor));
     operator.y().onTrue(new ToggleClaw(claw));
-    operator.b().onTrue(new RightAngle(arm));
+    operator.b().whileTrue(new RightAngle(arm));
     //    Driver
     driver.start().onTrue(new ToggleGear(drivebase));
     driver.a().onTrue(new Rainbow(ledLights));

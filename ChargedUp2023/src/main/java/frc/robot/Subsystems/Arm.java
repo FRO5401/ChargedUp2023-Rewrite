@@ -40,6 +40,7 @@ public class Arm extends SubsystemBase {
   double kP;
   double kI;
   double kD;
+  double kF;
 
 
   /** Creates a new Arm. */
@@ -79,22 +80,26 @@ public class Arm extends SubsystemBase {
     shoulderRight.setIdleMode(IdleMode.kBrake);
     telescopeMotor.setIdleMode(IdleMode.kBrake);
 
-     
-    kP = 0;
-    kI = 0;
-    kD = 0;
+    
+    kP = 0.22;
+    kI = 0.0;
+    kD = 0.0;
+    kF = 0.0;
 
     shoulderLeftPID.setP(kP);
     shoulderLeftPID.setI(kI);
     shoulderLeftPID.setD(kD);
+    shoulderLeftPID.setFF(kF);
     
     shoulderRightPID.setP(kP);
     shoulderRightPID.setI(kI);
     shoulderRightPID.setD(kD);
+    shoulderRightPID.setFF(kF);
 
     SmartDashboard.putNumber("P Gain", kP);
     SmartDashboard.putNumber("I Gain", kI);
     SmartDashboard.putNumber("D Gain", kD);
+    SmartDashboard.putNumber("FF Gain", kF);
     
   }
 
@@ -121,7 +126,8 @@ public class Arm extends SubsystemBase {
   public void setPosition(double position){
     shoulderLeftPID.setReference(position, ControlType.kPosition);
     shoulderRightPID.setReference(position, ControlType.kPosition);
-  }
+    
+    }
 
   public void rightAngle(){
     if(getShoulderLeftPosition() > 17.5){
@@ -143,14 +149,13 @@ public class Arm extends SubsystemBase {
     double p = SmartDashboard.getNumber("P Gain", 0);
     double i = SmartDashboard.getNumber("I Gain", 0);
     double d = SmartDashboard.getNumber("D Gain", 0);
+    double f = SmartDashboard.getNumber("FF Gain", 0);
 
-    if((p != kP)) { shoulderRightPID.setP(p); kP = p; }
-    if((i != kI)) { shoulderRightPID.setI(i); kI = i; }
-    if((d != kD)) { shoulderRightPID.setD(d); kD = d; }
+    if((p != kP)) { shoulderRightPID.setP(p); shoulderLeftPID.setP(p); kP = p; }
+    if((i != kI)) { shoulderRightPID.setI(i); shoulderLeftPID.setI(i); kI = i; }
+    if((d != kD)) { shoulderRightPID.setD(d); shoulderLeftPID.setD(d); kD = d; }
+    if((f != kF)) { shoulderRightPID.setFF(f); shoulderLeftPID.setFF(f); kF = f; }
 
-    if((p != kP)) { shoulderLeftPID.setP(p); kP = p; }
-    if((i != kI)) { shoulderLeftPID.setI(i); kI = i; }
-    if((d != kD)) { shoulderLeftPID.setD(d); kD = d; }
     
   }
 }
