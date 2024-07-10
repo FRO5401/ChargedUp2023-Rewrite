@@ -81,10 +81,10 @@ public class Arm extends SubsystemBase {
     telescopeMotor.setIdleMode(IdleMode.kBrake);
 
     
-    kP = 0.22;
-    kI = 0.0;
-    kD = 0.0;
-    kF = 0.0;
+    kP = 0.062;
+    kI = 0.000023;
+    kD = 0.0000086;
+    kF = 0.001;
 
     shoulderLeftPID.setP(kP);
     shoulderLeftPID.setI(kI);

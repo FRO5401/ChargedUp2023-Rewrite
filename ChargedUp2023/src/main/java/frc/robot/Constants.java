@@ -36,7 +36,7 @@ public final class Constants {
         public static final double TELESCOPE_MIN_EXTENSION = 0;
 
         //  Rotations
-        public static final double SHOULDER_MAX_ROTATION = 58; //95!!
+        public static final double SHOULDER_MAX_ROTATION = 60;
         public static final double SHOULDER_MIN_ROTATION = -2;
 
         //  PID

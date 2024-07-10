@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Commands.LeftAngle;
 import frc.robot.Commands.MoveArm;
 import frc.robot.Commands.RightAngle;
 import frc.robot.Commands.ToggleClaw;
@@ -50,6 +51,7 @@ public class RobotContainer {
     operator.x().onTrue(new ToggleCompressor(compresor));
     operator.y().onTrue(new ToggleClaw(claw));
     operator.b().whileTrue(new RightAngle(arm));
+    operator.a().whileTrue(new LeftAngle(arm));
     //    Driver
     driver.start().onTrue(new ToggleGear(drivebase));
     driver.a().onTrue(new Rainbow(ledLights));

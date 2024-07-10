@@ -34,7 +34,7 @@ public class MoveArm extends Command {
     XboxController operator = Controls.xbox_operator;
     // Controller Inputs
     double telescopePower = operator.getRightX();
-    double rotationPower = DriveConstants.PRECISION_PERCENT * operator.getLeftY();
+    double rotationPower = DriveConstants.PRECISION_PERCENT * -operator.getLeftY();
 
     /* Using Arm Functions */
     //arm.telescopeArm(telescopePower);
@@ -50,6 +50,7 @@ public class MoveArm extends Command {
     else {
       arm.telescopeArm(telescopePower);
     }
+    
 
     //  So then you dont extend past the telescopearm max or minimum position  
     if (arm.getShoulderRightPosition() > ArmConstants.SHOULDER_MAX_ROTATION && rotationPower > 0){
