@@ -5,13 +5,15 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Subsystems.Claw;
 
-public class ToggleClaw extends Command {
+public class ToggleCube extends Command {
   Claw claw;
 
-  /** Creates a new ToggleClaw. */
-  public ToggleClaw(Claw m_claw) {
+  /** Creates a new ToggleCube. */
+  public ToggleCube(Claw m_claw) {
+    // Use addRequirements() here to declare subsystem dependencies.
     claw = m_claw;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(claw);
@@ -24,12 +26,9 @@ public class ToggleClaw extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!claw.getLeftState()){
-      claw.open();
-    }
-    else {
-      claw.close();
-    }
+
+      claw.CubeGrab();
+
   }
 
   // Called once the command ends or is interrupted.

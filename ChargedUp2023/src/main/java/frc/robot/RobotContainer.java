@@ -8,10 +8,12 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Commands.ToggleCone;
+import frc.robot.Commands.ToggleCube;
+import frc.robot.Commands.OpenClaw;
 import frc.robot.Commands.LeftAngle;
 import frc.robot.Commands.MoveArm;
 import frc.robot.Commands.RightAngle;
-import frc.robot.Commands.ToggleClaw;
 import frc.robot.Commands.ToggleGear;
 import frc.robot.Commands.ToggleCompressor;
 import frc.robot.Subsystems.Arm;
@@ -49,9 +51,11 @@ public class RobotContainer {
     /*  Commands */
     //    Operator
     operator.x().onTrue(new ToggleCompressor(compresor));
-    operator.y().onTrue(new ToggleClaw(claw));
+    operator.rightTrigger().onTrue(new ToggleCone(claw));
+    operator.leftTrigger().onTrue(new ToggleCube(claw));
+    operator.y().onTrue(new OpenClaw(claw));
     operator.b().whileTrue(new RightAngle(arm));
-    operator.a().whileTrue(new LeftAngle(arm));
+    operator.x().whileTrue(new LeftAngle(arm));
     //    Driver
     driver.start().onTrue(new ToggleGear(drivebase));
     driver.a().onTrue(new Rainbow(ledLights));
