@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.Compresor;
 
 public class ToggleCompressor extends Command {
-  Compresor compresor;
+  private Compresor compresor;
+  
   /** Creates a new ToggleCompressor. */
   public ToggleCompressor(Compresor m_compresor) {
+    //  Makes local variable equal to global variable
     compresor = m_compresor;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(compresor);

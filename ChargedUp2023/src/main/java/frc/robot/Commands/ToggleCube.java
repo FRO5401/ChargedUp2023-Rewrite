@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Subsystems.Claw;
 
 public class ToggleCube extends Command {
-  Claw claw;
+  private Claw claw;
 
   /** Creates a new ToggleCube. */
   public ToggleCube(Claw m_claw) {

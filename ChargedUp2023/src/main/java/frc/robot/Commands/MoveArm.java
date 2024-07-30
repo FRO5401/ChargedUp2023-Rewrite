@@ -17,6 +17,7 @@ public class MoveArm extends Command {
 
   /** Creates a new TraverseArm. */
   public MoveArm(Arm m_arm) {
+    //  Makes local variable equal to global variable
     arm = m_arm;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(arm);
@@ -30,35 +31,39 @@ public class MoveArm extends Command {
   @Override
   public void execute() {
     /*  Variables */
-    // Controller
+    //    Controller
     XboxController operator = Controls.xbox_operator;
-    // Controller Inputs
+    //    Controller Inputs
     double telescopePower = operator.getRightX();
     double rotationPower = DriveConstants.PRECISION_PERCENT * -operator.getLeftY();
 
-    /* Using Arm Functions */
+    /*  Using Arm Functions */
     //arm.telescopeArm(telescopePower);
     //arm.rotateArm(rotationPower);
 
-    //  So then you dont extend past the telescopearm max or minimum position  
+    //  If Telescope Arm Passes Max Extension; Stop
     if (arm.getTelescopePosition() > ArmConstants.TELESCOPE_MAX_EXTENSION && telescopePower > 0){
       arm.telescopeArm(MotionConstants.NO_POWER_PERCENT);
     } 
+    //  If Telescope Arm Before Min Extension; Stop
     else if( arm.getTelescopePosition() < ArmConstants.TELESCOPE_MIN_EXTENSION && telescopePower < 0) {
       arm.telescopeArm(MotionConstants.NO_POWER_PERCENT);
     } 
+    //  Move Telescope Arm
     else {
       arm.telescopeArm(telescopePower);
     }
     
 
-    //  So then you dont extend past the telescopearm max or minimum position  
+    //  If Shoulder Rotation Passes Max Rotation; Stop
     if (arm.getShoulderRightPosition() > ArmConstants.SHOULDER_MAX_ROTATION && rotationPower > 0){
       arm.rotateArm(MotionConstants.NO_POWER_PERCENT);
     } 
+    //  If Shoulder Rotation Before Min Rotation; Stop
     else if( arm.getShoulderRightPosition() < ArmConstants.SHOULDER_MIN_ROTATION && rotationPower < 0) {
       arm.rotateArm(MotionConstants.NO_POWER_PERCENT);
     } 
+    //  Move Shoulder
     else {
       arm.rotateArm(rotationPower);
     }
@@ -68,7 +73,7 @@ public class MoveArm extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Setting the motor speeds to 0 when interrupted
+    //  Setting the motor speeds to 0 when interrupted
     arm.telescopeArm(MotionConstants.NO_POWER_PERCENT);
     arm.rotateArm(MotionConstants.NO_POWER_PERCENT);
   }

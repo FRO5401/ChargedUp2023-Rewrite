@@ -12,6 +12,7 @@ public class Rainbow extends Command {
   private boolean endCommand;
   /** Creates a new Rainbow. */
   public Rainbow(LEDLights m_ledLights) {
+    //  Makes local variable equal to global variable
     ledLights = m_ledLights;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ledLights);

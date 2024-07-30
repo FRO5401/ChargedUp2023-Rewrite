@@ -8,22 +8,29 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.Claw;
 
 public class OpenClaw extends Command {
-  Claw claw;
+  //  Declaring Variables
+  private Claw claw;
+  private boolean endCommand;
+
   /** Creates a new OpenClaw. */
   public OpenClaw(Claw m_claw) {
-    // Use addRequirements() here to declare subsystem dependencies.
+    //  Makes local variable equal to global variable
     claw = m_claw;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(claw);  }
+    addRequirements(claw);  
+  }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    endCommand = false;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     claw.open();
+    endCommand = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -33,6 +40,6 @@ public class OpenClaw extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return endCommand;
   }
 }

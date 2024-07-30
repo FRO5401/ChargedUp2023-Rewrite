@@ -9,10 +9,11 @@ import frc.robot.Subsystems.Drivebase;
 
 public class ToggleGear extends Command {
   private Drivebase gearShifter;
-  boolean endCommand;
+  private boolean endCommand;
 
   /** Creates a new HighGear. */
   public ToggleGear(Drivebase m_gearShifter) {
+    //  Makes local variable equal to global variable
     gearShifter = m_gearShifter;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(gearShifter);

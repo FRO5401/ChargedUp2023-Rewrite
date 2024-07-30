@@ -8,10 +8,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.Claw;
 
 public class ToggleCone extends Command {
-  Claw claw;
+  private Claw claw;
 
   /** Creates a new ToggleClaw. */
   public ToggleCone(Claw m_claw) {
+    //  Makes local variable equal to global variable
     claw = m_claw;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(claw);

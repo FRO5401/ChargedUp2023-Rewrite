@@ -8,12 +8,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.Arm;
 
 public class RightAngle extends Command {
-  Arm arm;
-  boolean endCommand;
+  private Arm arm;
+  private boolean endCommand;
+  
   /** Creates a new RightAngle. */
   public RightAngle(Arm m_arm) {
+    //  Makes local variable equal to global variable
     arm = m_arm;
-    // Use addRequirements() here to declare subsystem dependencies.
+    //  Use addRequirements() here to declare subsystem dependencies.
     addRequirements(arm);
   }
 
@@ -26,8 +28,8 @@ public class RightAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //  Moves Arm to Position
     arm.setPosition(17);
-
     endCommand = false;
   }
 

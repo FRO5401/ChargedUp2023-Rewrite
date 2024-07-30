@@ -69,7 +69,7 @@ public class Drivebase extends SubsystemBase {
     /*      Solenoid */
     gearShifter = new Solenoid(PneumaticsConstants.CTREPCM_ID, 
         PneumaticsModuleType.CTREPCM, 
-        PneumaticsConstants.GEARSHIFTER_CHANNEL);
+        DriveConstants.GEARSHIFTER_CHANNEL);
     isHighGear = false;
 
     /*    Restore Factory Defaults */
@@ -97,7 +97,7 @@ public class Drivebase extends SubsystemBase {
     rightDrive2.setIdleMode(IdleMode.kBrake);
     rightDrive3.setIdleMode(IdleMode.kBrake);
 
-     /*  Setting Current Limits */
+    /*  Setting Current Limits */
     //    Left Drive
     leftDrive1.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
     leftDrive2.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
@@ -107,7 +107,7 @@ public class Drivebase extends SubsystemBase {
     rightDrive2.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
     rightDrive3.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
 
-    /*    Motor Groupings */
+    /*  Motor Groupings */
     //      Sets leftDrive motors to follow leftDrive1
     leftDrive2.follow(leftDrive1);
     leftDrive3.follow(leftDrive1);
@@ -116,13 +116,14 @@ public class Drivebase extends SubsystemBase {
     rightDrive3.follow(rightDrive1);
 
   }
-  //    move Command
+
+  //    Drive Command
   public void move(double left, double right){
     //    Sets speeds of motors
     leftDrive1.set(left);
     rightDrive1.set(right);
   }
-
+  //    Change Gear
   public void invertGear(){
     isHighGear = !isHighGear;
     gearShifter.set(isHighGear);

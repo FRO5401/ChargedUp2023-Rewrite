@@ -37,11 +37,12 @@ public class Arm extends SubsystemBase {
   private SparkPIDController shoulderRightPID;
   private SparkPIDController shoulderLeftPID;
 
+  /* SmartDashBoard Tuning
   double kP;
   double kI;
   double kD;
   double kF;
-
+  */
 
   /** Creates a new Arm. */
   public Arm() {
@@ -71,6 +72,16 @@ public class Arm extends SubsystemBase {
     //      Shoulder PID
     shoulderLeftPID = shoulderLeft.getPIDController();
     shoulderRightPID = shoulderRight.getPIDController();
+    //      PID Values
+    shoulderLeftPID.setP(ArmConstants.kP);
+    shoulderLeftPID.setI(ArmConstants.kI);
+    shoulderLeftPID.setD(ArmConstants.kD);
+    shoulderLeftPID.setFF(ArmConstants.kF);
+    
+    shoulderRightPID.setP(ArmConstants.kP);
+    shoulderRightPID.setI(ArmConstants.kI);
+    shoulderRightPID.setD(ArmConstants.kD);
+    shoulderRightPID.setFF(ArmConstants.kF);
 
     //  Motor direction
     shoulderRight.setInverted(true);
@@ -80,12 +91,15 @@ public class Arm extends SubsystemBase {
     shoulderRight.setIdleMode(IdleMode.kBrake);
     telescopeMotor.setIdleMode(IdleMode.kBrake);
 
-    
-    kP = 0.062;
-    kI = 0.000023;
-    kD = 0.0000086;
-    kF = 0.001;
+    /*  SmartDashBoard Tuning */
+    /* 
+    //    Sets PID Variables Value
+    kP = ArmConstants.kP;
+    kI = ArmConstants.kI;
+    kD = ArmConstants.kD;
+    kF = ArmConstants.kF;    
 
+    //    Set PID Controller
     shoulderLeftPID.setP(kP);
     shoulderLeftPID.setI(kI);
     shoulderLeftPID.setD(kD);
@@ -96,11 +110,12 @@ public class Arm extends SubsystemBase {
     shoulderRightPID.setD(kD);
     shoulderRightPID.setFF(kF);
 
+    //    Displays PID to SmartDashBoard
     SmartDashboard.putNumber("P Gain", kP);
     SmartDashboard.putNumber("I Gain", kI);
     SmartDashboard.putNumber("D Gain", kD);
     SmartDashboard.putNumber("FF Gain", kF);
-    
+    */
   }
 
   public void rotateArm(double power){
@@ -123,10 +138,10 @@ public class Arm extends SubsystemBase {
   public double getShoulderLeftPosition(){
     return shoulderEncoderLeft.getPosition();
   }
+  
   public void setPosition(double position){
     shoulderLeftPID.setReference(position, ControlType.kPosition);
     shoulderRightPID.setReference(position, ControlType.kPosition);
-    
     }
 
   public void rightAngle(){
@@ -146,16 +161,19 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("Left Shoulder Encoder Value", getShoulderLeftPosition());
     SmartDashboard.putNumber("Right Shoulder Encoder Value", getShoulderRightPosition());
     
+    /*  PID Tuning */
+    /*
+    //    Gets Values from SmartDashBoard
     double p = SmartDashboard.getNumber("P Gain", 0);
     double i = SmartDashboard.getNumber("I Gain", 0);
     double d = SmartDashboard.getNumber("D Gain", 0);
     double f = SmartDashboard.getNumber("FF Gain", 0);
 
+    //  If the Value Changes Update the PID Values
     if((p != kP)) { shoulderRightPID.setP(p); shoulderLeftPID.setP(p); kP = p; }
     if((i != kI)) { shoulderRightPID.setI(i); shoulderLeftPID.setI(i); kI = i; }
     if((d != kD)) { shoulderRightPID.setD(d); shoulderLeftPID.setD(d); kD = d; }
     if((f != kF)) { shoulderRightPID.setFF(f); shoulderLeftPID.setFF(f); kF = f; }
-
-    
+    */
   }
 }
