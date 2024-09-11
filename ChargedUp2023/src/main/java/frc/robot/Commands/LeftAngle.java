@@ -5,6 +5,7 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.Subsystems.Arm;
 
 public class LeftAngle extends Command {
@@ -30,7 +31,7 @@ public class LeftAngle extends Command {
   @Override
   public void execute() {
     //  Moves Arm to Position
-    arm.setPosition(46);
+    arm.setPosition(Constants.ArmConstants.LEFT_ANGLE);
     endCommand = false;
   }
 

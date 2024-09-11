@@ -38,11 +38,11 @@ public class MoveArm extends Command {
     double rotationPower = DriveConstants.PRECISION_PERCENT * -operator.getLeftY();
 
     /*  Using Arm Functions */
-    //arm.telescopeArm(telescopePower);
-    //arm.rotateArm(rotationPower);
+    arm.telescopeArm(telescopePower);
+    arm.rotateArm(rotationPower);
 
     //  If Telescope Arm Passes Max Extension; Stop
-    if (arm.getTelescopePosition() > ArmConstants.TELESCOPE_MAX_EXTENSION && telescopePower > 0){
+    /*if (arm.getTelescopePosition() > ArmConstants.TELESCOPE_MAX_EXTENSION && telescopePower > 0){
       arm.telescopeArm(MotionConstants.NO_POWER_PERCENT);
     } 
     //  If Telescope Arm Before Min Extension; Stop
@@ -53,8 +53,8 @@ public class MoveArm extends Command {
     else {
       arm.telescopeArm(telescopePower);
     }
-    
-
+   */
+    /* 
     //  If Shoulder Rotation Passes Max Rotation; Stop
     if (arm.getShoulderRightPosition() > ArmConstants.SHOULDER_MAX_ROTATION && rotationPower > 0){
       arm.rotateArm(MotionConstants.NO_POWER_PERCENT);
@@ -67,7 +67,7 @@ public class MoveArm extends Command {
     else {
       arm.rotateArm(rotationPower);
     }
-  
+  */
   }
 
   // Called once the command ends or is interrupted.

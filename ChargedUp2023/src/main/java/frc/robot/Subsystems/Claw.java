@@ -35,9 +35,9 @@ public class Claw extends SubsystemBase {
         
     /*      Positions */
     //        Soleniod open position
-    open = true;
+    open = false; //flipped tubed backward
     //        Soleniod close position
-    close = false;
+    close = true; //flipped tubed backward
     
   }
   //  Extends both soleniods to open the claw

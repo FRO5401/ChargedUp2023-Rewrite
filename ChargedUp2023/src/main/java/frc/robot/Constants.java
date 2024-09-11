@@ -49,6 +49,10 @@ public final class Constants {
         public static final double kI = 0.000023; 
         public static final double kD = 0.0000086;
         public static final double kF = 0.001;    
+
+        //  Set Points
+        public static final int LEFT_ANGLE = 50;
+        public static final int RIGHT_ANGLE = 19;
     }
 
     public static class ClawConstants{
