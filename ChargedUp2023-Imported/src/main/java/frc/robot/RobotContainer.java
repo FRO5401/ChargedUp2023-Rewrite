@@ -11,18 +11,18 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Commands.ToggleCone;
 import frc.robot.Commands.ToggleCube;
 import frc.robot.Commands.OpenClaw;
-import frc.robot.Commands.LeftAngle;
-import frc.robot.Commands.MoveArm;
-import frc.robot.Commands.RightAngle;
-import frc.robot.Commands.ToggleGear;
+// import frc.robot.Commands.LeftAngle;
+// import frc.robot.Commands.MoveArm;
+// import frc.robot.Commands.RightAngle;
+// import frc.robot.Commands.ToggleGear;
 import frc.robot.Commands.ToggleCompressor;
-import frc.robot.Subsystems.Arm;
+// import frc.robot.Subsystems.Arm;
 import frc.robot.Subsystems.Claw;
 import frc.robot.Subsystems.Compresor;
-import frc.robot.Commands.XboxMove;
+// import frc.robot.Commands.XboxMove;
 import frc.robot.Commands.Lights.Rainbow;
 import frc.robot.Commands.Lights.SolidColor;
-import frc.robot.Subsystems.Drivebase;
+// import frc.robot.Subsystems.Drivebase;
 import frc.robot.Subsystems.LEDLights;
 
 public class RobotContainer {
@@ -33,15 +33,15 @@ public class RobotContainer {
 
   //    Subsystems
   Compresor compresor = new Compresor();
-  Drivebase drivebase = new Drivebase();
+  // Drivebase drivebase = new Drivebase();
   Claw claw = new Claw();
-  Arm arm = new Arm();
+  // Arm arm = new Arm();
   LEDLights ledLights = new LEDLights();
 
   public RobotContainer() {
     /* Setting Default Commands */
-    drivebase.setDefaultCommand(new XboxMove(drivebase));
-    arm.setDefaultCommand(new MoveArm(arm));
+    // drivebase.setDefaultCommand(new XboxMove(drivebase));
+    // arm.setDefaultCommand(new MoveArm(arm));
 
     /* Configuring bindings */
     configureBindings();
@@ -54,10 +54,10 @@ public class RobotContainer {
     operator.rightTrigger().onTrue(new ToggleCone(claw));
     operator.leftTrigger().onTrue(new ToggleCube(claw));
     operator.y().onTrue(new OpenClaw(claw));
-    operator.b().whileTrue(new RightAngle(arm));
-    operator.x().whileTrue(new LeftAngle(arm));
+    // operator.b().whileTrue(new RightAngle(arm));
+    // operator.x().whileTrue(new LeftAngle(arm));
     //    Driver
-    driver.start().onTrue(new ToggleGear(drivebase));
+    // driver.start().onTrue(new ToggleGear(drivebase));
     driver.a().onTrue(new Rainbow(ledLights));
     driver.b().onTrue(new SolidColor(ledLights, Color.kRed));
     driver.y().onTrue(new SolidColor(ledLights, Color.kOrange));
