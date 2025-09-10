@@ -5,10 +5,14 @@
 package frc.robot.Subsystems;
 /*  Imports */
 //    REV
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
 //    WPI
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -19,15 +23,26 @@ import frc.robot.Constants.PneumaticsConstants;
 
 public class Drivebase extends SubsystemBase {
   /*  Declaring Variables */
-  /*    CANSparkMaxs */
+  /*    Spark Maxes */
   //      Left Drive
-  private CANSparkMax leftDrive1;
-  private CANSparkMax leftDrive2;
-  private CANSparkMax leftDrive3;
+  private SparkMax leftDrive1;
+  private SparkMax leftDrive2;
+  private SparkMax leftDrive3;
   //      Right Drive
-  private CANSparkMax rightDrive1;
-  private CANSparkMax rightDrive2;
-  private CANSparkMax rightDrive3;
+  private SparkMax rightDrive1;
+  private SparkMax rightDrive2;
+  private SparkMax rightDrive3;
+
+  /*  Spark Configs */
+  //      Left Drive
+  private SparkMaxConfig leftConfig1;
+  private SparkMaxConfig leftConfig2;
+  private SparkMaxConfig leftConfig3;
+  //      Right Drive
+  private SparkMaxConfig rightConfig1;
+  private SparkMaxConfig rightConfig2;
+  private SparkMaxConfig rightConfig3;
+
 
   /*    Encoders */
   //      Left Encoder
@@ -46,15 +61,65 @@ public class Drivebase extends SubsystemBase {
   /** Creates a new Drivebase. */
   public Drivebase() {
     /*    Initializing Variables */
-    /*      CANSparkMaxs */
+    /*      Spark Maxes */
     //        Left Drive Motors
-    leftDrive1 = new CANSparkMax(DriveConstants.LEFT_DRIVE_1_ID, MotorType.kBrushless);
-    leftDrive2 = new CANSparkMax(DriveConstants.LEFT_DRIVE_2_ID, MotorType.kBrushless);
-    leftDrive3 = new CANSparkMax(DriveConstants.LEFT_DRIVE_3_ID, MotorType.kBrushless);
+    leftDrive1 = new SparkMax(DriveConstants.LEFT_DRIVE_1_ID, MotorType.kBrushless);
+    leftDrive2 = new SparkMax(DriveConstants.LEFT_DRIVE_2_ID, MotorType.kBrushless);
+    leftDrive3 = new SparkMax(DriveConstants.LEFT_DRIVE_3_ID, MotorType.kBrushless);
     //        Right Drive Motors
-    rightDrive1 = new CANSparkMax(DriveConstants.RIGHT_DRIVE_1_ID, MotorType.kBrushless);
-    rightDrive2 = new CANSparkMax(DriveConstants.RIGHT_DRIVE_2_ID, MotorType.kBrushless);
-    rightDrive3 = new CANSparkMax(DriveConstants.RIGHT_DRIVE_3_ID, MotorType.kBrushless);
+    rightDrive1 = new SparkMax(DriveConstants.RIGHT_DRIVE_1_ID, MotorType.kBrushless);
+    rightDrive2 = new SparkMax(DriveConstants.RIGHT_DRIVE_2_ID, MotorType.kBrushless);
+    rightDrive3 = new SparkMax(DriveConstants.RIGHT_DRIVE_3_ID, MotorType.kBrushless);
+
+    /*      Spark Configs */
+    //        Left Drive Configs
+    leftConfig1 = new SparkMaxConfig();
+    leftConfig2 = new SparkMaxConfig();
+    leftConfig3 = new SparkMaxConfig();
+    //        Right Drive Configs
+    rightConfig1 = new SparkMaxConfig();
+    rightConfig2 = new SparkMaxConfig();
+    rightConfig3 = new SparkMaxConfig();
+
+    /*      Configuring Configs */
+    //        Left Drive Configs
+    leftConfig1
+      .inverted(true)
+      .idleMode(IdleMode.kBrake)
+      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
+    leftConfig2
+      .inverted(true)
+      .idleMode(IdleMode.kBrake)
+      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
+      .follow(leftDrive1);
+    leftConfig3
+      .inverted(true)
+      .idleMode(IdleMode.kBrake)
+      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
+      .follow(leftDrive1);
+    //        Right Drive Configs
+    rightConfig1
+      .inverted(false)
+      .idleMode(IdleMode.kBrake)
+      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
+    rightConfig2
+      .inverted(false)
+      .idleMode(IdleMode.kBrake)
+      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
+      .follow(rightDrive1);
+    rightConfig1
+      .inverted(false)
+      .idleMode(IdleMode.kBrake)
+      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
+      .follow(rightDrive1);
+
+    //        Configuring motors
+    leftDrive1.configure(leftConfig1, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    leftDrive2.configure(leftConfig2, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    leftDrive3.configure(leftConfig3, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    rightDrive1.configure(rightConfig1, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    rightDrive2.configure(rightConfig2, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    rightDrive3.configure(rightConfig3, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     /*      Encoders */
     //        Left Drive Encoders
@@ -71,49 +136,6 @@ public class Drivebase extends SubsystemBase {
         PneumaticsModuleType.CTREPCM, 
         DriveConstants.GEARSHIFTER_CHANNEL);
     isHighGear = false;
-
-    /*    Restore Factory Defaults */
-    //      leftDrive Restore
-    leftDrive1.restoreFactoryDefaults();
-    leftDrive2.restoreFactoryDefaults();
-    leftDrive3.restoreFactoryDefaults();
-    //      rightDrive Restore
-    rightDrive1.restoreFactoryDefaults();
-    rightDrive2.restoreFactoryDefaults();
-    rightDrive3.restoreFactoryDefaults();
-
-    //    Inverts left motors direction 
-    leftDrive1.setInverted(true);
-    leftDrive2.setInverted(true);
-    leftDrive3.setInverted(true);
-
-    /*  Setting Idle Mode */
-    //    Left Drive
-    leftDrive1.setIdleMode(IdleMode.kBrake);
-    leftDrive2.setIdleMode(IdleMode.kBrake);
-    leftDrive3.setIdleMode(IdleMode.kBrake);
-    //    Right Drive
-    rightDrive1.setIdleMode(IdleMode.kBrake);
-    rightDrive2.setIdleMode(IdleMode.kBrake);
-    rightDrive3.setIdleMode(IdleMode.kBrake);
-
-    /*  Setting Current Limits */
-    //    Left Drive
-    leftDrive1.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
-    leftDrive2.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
-    leftDrive3.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
-    //    Right Drive
-    rightDrive1.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
-    rightDrive2.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
-    rightDrive3.setSmartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
-
-    /*  Motor Groupings */
-    //      Sets leftDrive motors to follow leftDrive1
-    leftDrive2.follow(leftDrive1);
-    leftDrive3.follow(leftDrive1);
-    //      Set rightDrive motors to follow rightDrive1
-    rightDrive2.follow(rightDrive1);
-    rightDrive3.follow(rightDrive1);
 
   }
 

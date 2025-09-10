@@ -40,8 +40,8 @@ public class XboxMove extends Command {
     double throttle = driver.getRightTriggerAxis();
     double reverse = negPower * driver.getLeftTriggerAxis();
     boolean pirouette = driver.getLeftStickButton();
-    boolean precision = driver.getRightBumper();
-    boolean stop = driver.getLeftBumper();
+    boolean precision = driver.getRightBumperButton();
+    boolean stop = driver.getLeftBumperButton();
 
     // if stopped
     double percent = fullPower;

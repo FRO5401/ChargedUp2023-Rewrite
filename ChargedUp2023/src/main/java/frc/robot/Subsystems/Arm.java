@@ -4,12 +4,16 @@
 
 package frc.robot.Subsystems;
 
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkPIDController;
-import com.revrobotics.CANSparkBase.ControlType;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,12 +22,19 @@ import frc.robot.Constants.MotionConstants;
 
 public class Arm extends SubsystemBase {
   /*  Declaring Variables */
-  /*    CANSparkMaxs */
+  /*    Spark Maxes */
   //      Shoulder Motors
-  private CANSparkMax shoulderLeft;
-  private CANSparkMax shoulderRight;
+  private SparkMax shoulderLeft;
+  private SparkMax shoulderRight;
   //      Telescoping Arm Motor
-  private CANSparkMax telescopeMotor;
+  private SparkMax telescopeMotor;
+
+  /*    Spark Configs */
+  //      Shoulder Configs
+  private SparkMaxConfig shoulderConfigLeft;
+  private SparkMaxConfig shoulderConfigRight;
+  //      Telescoping Arm Configs
+  private SparkMaxConfig telescopeConfig;
 
   /*    Encoders */
   //      Shoulder Encoders
@@ -34,8 +45,8 @@ public class Arm extends SubsystemBase {
 
   /*    PID */
   //      Shoulder PID Controller
-  private SparkPIDController shoulderRightPID;
-  private SparkPIDController shoulderLeftPID;
+  private SparkClosedLoopController shoulderRightPID;
+  private SparkClosedLoopController shoulderLeftPID;
 
   /* SmartDashBoard Tuning
   double kP;
@@ -47,16 +58,36 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   public Arm() {
     /*  Initalizing Variables */
-    /*    CANSparkMaxs */
+    /*    Spark Maxes */
     //      Shoulder Motors
-    shoulderLeft = new CANSparkMax(ArmConstants.SHOULDER_LEFT_ID, MotorType.kBrushless);
-    shoulderRight = new CANSparkMax(ArmConstants.SHOULDER_RIGHT_ID, MotorType.kBrushless);
+    shoulderLeft = new SparkMax(ArmConstants.SHOULDER_LEFT_ID, MotorType.kBrushless);
+    shoulderRight = new SparkMax(ArmConstants.SHOULDER_RIGHT_ID, MotorType.kBrushless);
     //      Telescoping Arm Motor
-    telescopeMotor = new CANSparkMax(ArmConstants.TELESCOPE_MOTOR_ID, MotorType.kBrushless);
+    telescopeMotor = new SparkMax(ArmConstants.TELESCOPE_MOTOR_ID, MotorType.kBrushless);
+
+    /*    Spark Configs */
+    //      Shoulder Configs
+    shoulderConfigLeft = new SparkMaxConfig();
+    shoulderConfigRight = new SparkMaxConfig();
+    //      Telescoping Arm Configs
+    telescopeConfig = new SparkMaxConfig();
+
+    /*      Configuring Configs */
+    //      Shoulder Configs
+    shoulderConfigLeft
+      .inverted(false)
+      .idleMode(IdleMode.kBrake);
+    shoulderConfigRight
+      .inverted(true)
+      .idleMode(IdleMode.kBrake);
+    //      Telescoping Arm Configs
+    telescopeConfig
+      .inverted(false)
+      .idleMode(IdleMode.kBrake);
 
     /*    Encoders  */
     //      Shoulder Motors
-    shoulderEncoderLeft = shoulderLeft.getEncoder();
+      shoulderEncoderLeft = shoulderLeft.getEncoder();
     shoulderEncoderRight = shoulderRight.getEncoder();
     //      Telescoping Arm Motor
     telescopeEncoder = telescopeMotor.getEncoder();
@@ -69,28 +100,19 @@ public class Arm extends SubsystemBase {
     telescopeEncoder.setPosition(MotionConstants.NO_POWER_PERCENT);
 
     /*    PID */
-    //      Shoulder PID
-    shoulderLeftPID = shoulderLeft.getPIDController();
-    shoulderRightPID = shoulderRight.getPIDController();
     //      PID Values
-    shoulderLeftPID.setP(ArmConstants.kP);
-    shoulderLeftPID.setI(ArmConstants.kI);
-    shoulderLeftPID.setD(ArmConstants.kD);
-    shoulderLeftPID.setFF(ArmConstants.kF);
+    shoulderConfigLeft.closedLoop
+      .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+      .pid(ArmConstants.kP, ArmConstants.kI, ArmConstants.kI);
+    shoulderConfigLeft.closedLoop
+      .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
+      .pid(ArmConstants.kP, ArmConstants.kI, ArmConstants.kI);
+
+    /*      Configuring motors */
+    shoulderLeft.configure(shoulderConfigLeft, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    shoulderRight.configure(shoulderConfigRight, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    telescopeMotor.configure(telescopeConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     
-    shoulderRightPID.setP(ArmConstants.kP);
-    shoulderRightPID.setI(ArmConstants.kI);
-    shoulderRightPID.setD(ArmConstants.kD);
-    shoulderRightPID.setFF(ArmConstants.kF);
-
-    //  Motor direction
-    shoulderRight.setInverted(true);
-
-    //  Set Idle Mode of Motors
-    shoulderLeft.setIdleMode(IdleMode.kBrake);
-    shoulderRight.setIdleMode(IdleMode.kBrake);
-    telescopeMotor.setIdleMode(IdleMode.kBrake);
-
     /*  SmartDashBoard Tuning */
     /* 
     //    Sets PID Variables Value
