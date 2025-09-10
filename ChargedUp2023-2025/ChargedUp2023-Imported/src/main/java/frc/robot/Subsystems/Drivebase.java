@@ -7,7 +7,8 @@ package frc.robot.Subsystems;
 //    REV
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.config.SparkBaseConfig;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
@@ -22,7 +23,7 @@ import frc.robot.Constants.PneumaticsConstants;
 
 public class Drivebase extends SubsystemBase {
   /*  Declaring Variables */
-  /*    CANSparkMaxs */
+  /*    Spark Maxes */
   //      Left Drive
   private SparkMax leftDrive1;
   private SparkMax leftDrive2;
@@ -32,23 +33,26 @@ public class Drivebase extends SubsystemBase {
   private SparkMax rightDrive2;
   private SparkMax rightDrive3;
 
+  /*  Spark Configs */
+  //      Left Drive
   private SparkMaxConfig leftConfig1;
   private SparkMaxConfig leftConfig2;
   private SparkMaxConfig leftConfig3;
+  //      Right Drive
   private SparkMaxConfig rightConfig1;
   private SparkMaxConfig rightConfig2;
   private SparkMaxConfig rightConfig3;
 
 
-  // /*    Encoders */
-  // //      Left Encoder
-  // private RelativeEncoder leftEncoder1;
-  // private RelativeEncoder leftEncoder2;
-  // private RelativeEncoder leftEncoder3;
-  // //      Right Encoder
-  // private RelativeEncoder rightEncoder1;
-  // private RelativeEncoder rightEncoder2;
-  // private RelativeEncoder rightEncoder3;
+  /*    Encoders */
+  //      Left Encoder
+  private RelativeEncoder leftEncoder1;
+  private RelativeEncoder leftEncoder2;
+  private RelativeEncoder leftEncoder3;
+  //      Right Encoder
+  private RelativeEncoder rightEncoder1;
+  private RelativeEncoder rightEncoder2;
+  private RelativeEncoder rightEncoder3;
 
   /*    Soleniods */
   private Solenoid gearShifter;
@@ -57,7 +61,7 @@ public class Drivebase extends SubsystemBase {
   /** Creates a new Drivebase. */
   public Drivebase() {
     /*    Initializing Variables */
-    /*      CANSparkMaxs */
+    /*      Spark Maxes */
     //        Left Drive Motors
     leftDrive1 = new SparkMax(DriveConstants.LEFT_DRIVE_1_ID, MotorType.kBrushless);
     leftDrive2 = new SparkMax(DriveConstants.LEFT_DRIVE_2_ID, MotorType.kBrushless);
@@ -67,14 +71,18 @@ public class Drivebase extends SubsystemBase {
     rightDrive2 = new SparkMax(DriveConstants.RIGHT_DRIVE_2_ID, MotorType.kBrushless);
     rightDrive3 = new SparkMax(DriveConstants.RIGHT_DRIVE_3_ID, MotorType.kBrushless);
 
+    /*      Spark Configs */
+    //        Left Drive Configs
     leftConfig1 = new SparkMaxConfig();
     leftConfig2 = new SparkMaxConfig();
     leftConfig3 = new SparkMaxConfig();
+    //        Right Drive Configs
     rightConfig1 = new SparkMaxConfig();
     rightConfig2 = new SparkMaxConfig();
     rightConfig3 = new SparkMaxConfig();
 
-    // Configs
+    /*      Configuring Configs */
+    //        Left Drive Configs
     leftConfig1
       .inverted(true)
       .idleMode(IdleMode.kBrake)
@@ -89,40 +97,39 @@ public class Drivebase extends SubsystemBase {
       .idleMode(IdleMode.kBrake)
       .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
       .follow(leftDrive1);
-
-      
+    //        Right Drive Configs
     rightConfig1
-    .inverted(false)
-    .idleMode(IdleMode.kBrake)
-    .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
+      .inverted(false)
+      .idleMode(IdleMode.kBrake)
+      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
     rightConfig2
-    .inverted(false)
-    .idleMode(IdleMode.kBrake)
-    .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
-    .follow(rightDrive1);
+      .inverted(false)
+      .idleMode(IdleMode.kBrake)
+      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
+      .follow(rightDrive1);
     rightConfig1
-    .inverted(false)
-    .idleMode(IdleMode.kBrake)
-    .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
-    .follow(rightDrive1);
+      .inverted(false)
+      .idleMode(IdleMode.kBrake)
+      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
+      .follow(rightDrive1);
 
-    leftDrive1.configure(leftConfig1, null, null);
-    leftDrive2.configure(leftConfig2, null, null);
-    leftDrive3.configure(leftConfig3, null, null);
-    rightDrive1.configure(rightConfig1, null, null);
-    rightDrive2.configure(rightConfig2, null, null);
-    rightDrive3.configure(rightConfig3, null, null);
+    //        Configuring motors
+    leftDrive1.configure(leftConfig1, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    leftDrive2.configure(leftConfig2, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    leftDrive3.configure(leftConfig3, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    rightDrive1.configure(rightConfig1, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    rightDrive2.configure(rightConfig2, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    rightDrive3.configure(rightConfig3, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
-
-    // /*      Encoders */
-    // //        Left Drive Encoders
-    // leftEncoder1 = leftDrive1.getEncoder();
-    // leftEncoder2 = leftDrive2.getEncoder();
-    // leftEncoder3 = leftDrive3.getEncoder();
-    // //        Right Drive Encoders
-    // rightEncoder1 = rightDrive1.getEncoder();
-    // rightEncoder2 = rightDrive2.getEncoder();
-    // rightEncoder3 = rightDrive3.getEncoder();
+    /*      Encoders */
+    //        Left Drive Encoders
+    leftEncoder1 = leftDrive1.getEncoder();
+    leftEncoder2 = leftDrive2.getEncoder();
+    leftEncoder3 = leftDrive3.getEncoder();
+    //        Right Drive Encoders
+    rightEncoder1 = rightDrive1.getEncoder();
+    rightEncoder2 = rightDrive2.getEncoder();
+    rightEncoder3 = rightDrive3.getEncoder();
 
     /*      Solenoid */
     gearShifter = new Solenoid(PneumaticsConstants.CTREPCM_ID, 

@@ -30,7 +30,7 @@ public class RightAngle extends Command {
   @Override
   public void execute() {
     //  Moves Arm to Position
-    // arm.setPosition(Constants.ArmConstants.RIGHT_ANGLE);
+    arm.setPosition(Constants.ArmConstants.RIGHT_ANGLE);
     endCommand = false;
   }
 

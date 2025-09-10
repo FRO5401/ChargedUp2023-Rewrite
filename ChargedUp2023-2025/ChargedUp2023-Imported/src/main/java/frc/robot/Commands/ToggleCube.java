@@ -5,7 +5,6 @@
 package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Subsystems.Claw;
 
 public class ToggleCube extends Command {
@@ -26,9 +25,7 @@ public class ToggleCube extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
       claw.CubeGrab();
-
   }
 
   // Called once the command ends or is interrupted.

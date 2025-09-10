@@ -31,7 +31,7 @@ public class LeftAngle extends Command {
   @Override
   public void execute() {
     //  Moves Arm to Position
-    // arm.setPosition(Constants.ArmConstants.LEFT_ANGLE);
+    arm.setPosition(Constants.ArmConstants.LEFT_ANGLE);
     endCommand = false;
   }
 
