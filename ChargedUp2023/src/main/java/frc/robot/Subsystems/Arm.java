@@ -179,9 +179,9 @@ public class Arm extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
 
-    SmartDashboard.putNumber("Telescope Encoder Value", getTelescopePosition());
-    SmartDashboard.putNumber("Left Shoulder Encoder Value", getShoulderLeftPosition());
-    SmartDashboard.putNumber("Right Shoulder Encoder Value", getShoulderRightPosition());
+    // SmartDashboard.putNumber("Telescope Encoder Value", getTelescopePosition());
+    // SmartDashboard.putNumber("Left Shoulder Encoder Value", getShoulderLeftPosition());
+    // SmartDashboard.putNumber("Right Shoulder Encoder Value", getShoulderRightPosition());
     
     /*  PID Tuning */
     /*

@@ -54,8 +54,8 @@ public class RobotContainer {
     operator.rightTrigger().onTrue(new ToggleCone(claw));
     operator.leftTrigger().onTrue(new ToggleCube(claw));
     operator.y().onTrue(new OpenClaw(claw));
-    operator.b().whileTrue(new RightAngle(arm));
-    operator.x().whileTrue(new LeftAngle(arm));
+    // operator.b().whileTrue(new RightAngle(arm));
+    // operator.x().whileTrue(new LeftAngle(arm));
     //    Driver
     driver.start().onTrue(new ToggleGear(drivebase));
     driver.a().onTrue(new Rainbow(ledLights));

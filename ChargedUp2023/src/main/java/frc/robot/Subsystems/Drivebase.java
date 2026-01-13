@@ -101,13 +101,13 @@ public class Drivebase extends SubsystemBase {
     rightConfig1
       .inverted(false)
       .idleMode(IdleMode.kBrake)
-      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);
+      .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT);    
     rightConfig2
       .inverted(false)
       .idleMode(IdleMode.kBrake)
       .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
       .follow(rightDrive1);
-    rightConfig1
+    rightConfig3
       .inverted(false)
       .idleMode(IdleMode.kBrake)
       .smartCurrentLimit(DriveConstants.MOTOR_CURRENT_LIMIT)
