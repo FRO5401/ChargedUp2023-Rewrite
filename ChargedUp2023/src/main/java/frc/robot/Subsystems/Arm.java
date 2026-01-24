@@ -4,21 +4,23 @@
 
 package frc.robot.Subsystems;
 
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkBase.ControlType;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.FeedbackSensor;
 import com.revrobotics.spark.config.SparkMaxConfig;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ArmConstants;
 import frc.robot.Constants.MotionConstants;
+
+// Smart Dashboard Tuning
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Arm extends SubsystemBase {
   /*  Declaring Variables */
@@ -87,7 +89,7 @@ public class Arm extends SubsystemBase {
 
     /*    Encoders  */
     //      Shoulder Motors
-      shoulderEncoderLeft = shoulderLeft.getEncoder();
+    shoulderEncoderLeft = shoulderLeft.getEncoder();
     shoulderEncoderRight = shoulderRight.getEncoder();
     //      Telescoping Arm Motor
     telescopeEncoder = telescopeMotor.getEncoder();
@@ -162,8 +164,8 @@ public class Arm extends SubsystemBase {
   }
   
   public void setPosition(double position){
-    shoulderLeftPID.setReference(position, ControlType.kPosition);
-    shoulderRightPID.setReference(position, ControlType.kPosition);
+    shoulderLeftPID.setSetpoint(position, ControlType.kPosition);
+    shoulderRightPID.setSetpoint(position, ControlType.kPosition);
     }
 
   public void rightAngle(){
