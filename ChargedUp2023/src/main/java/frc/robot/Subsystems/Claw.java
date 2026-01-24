@@ -8,6 +8,7 @@ package frc.robot.Subsystems;
 //    WPI
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //    Robot
 import frc.robot.Constants.PneumaticsConstants;
@@ -40,33 +41,32 @@ public class Claw extends SubsystemBase {
     close = true; //flipped tubed backward
     
   }
-  //  Extends both soleniods to open the claw
-  public void open(){
-    leftClaw.set(open);
-    rightClaw.set(open);
-  }
-  //  Retracts both soleniods to open the claw
-  public void ConeGrab(){
-    leftClaw.set(close);
-    rightClaw.set(close);
-  }
-
-  public void CubeGrab(){
-    leftClaw.set(close);
-    rightClaw.set(open);
-  }
-
-  //  Return if the left Claw is Extended or Retracted
-  public boolean getLeftState(){
-    return leftClaw.get();
-  }
-  //  Return if the right Claw is Extended or Retracted
-  public boolean getRightState(){
-    return rightClaw.get();
-  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  /*    In-Line Commands */
+  // Opens the claw
+  public Command open(){
+    return runOnce(()->{
+      leftClaw.set(open);
+      rightClaw.set(open);
+    });
+  }
+  // Opens the claw to the cube position
+  public Command toCube(){
+    return runOnce(()->{  
+      leftClaw.set(close);
+      rightClaw.set(open);
+    });
+  }
+  // Opens the claw to the cone position
+  public Command toCone(){
+    return runOnce(()->{
+      leftClaw.set(close);
+      rightClaw.set(close);
+    });
   }
 }

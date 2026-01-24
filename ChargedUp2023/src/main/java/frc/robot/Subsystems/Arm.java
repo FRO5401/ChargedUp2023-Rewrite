@@ -4,19 +4,24 @@
 
 package frc.robot.Subsystems;
 
-import com.revrobotics.RelativeEncoder;
+import java.util.function.DoubleSupplier;
+
 import com.revrobotics.PersistMode;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.ResetMode;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.FeedbackSensor;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.FeedbackSensor;
-import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ArmConstants;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.MotionConstants;
 
 // Smart Dashboard Tuning
@@ -142,41 +147,6 @@ public class Arm extends SubsystemBase {
     */
   }
 
-  public void rotateArm(double power){
-    shoulderRight.set(power);
-    shoulderLeft.set(power);
-  }
-
-  public void telescopeArm(double power){
-    telescopeMotor.set(power);
-  }
-
-  public double getTelescopePosition(){
-    return telescopeEncoder.getPosition();
-  }
-
-  public double getShoulderRightPosition(){
-    return shoulderEncoderRight.getPosition();
-  }
-
-  public double getShoulderLeftPosition(){
-    return shoulderEncoderLeft.getPosition();
-  }
-  
-  public void setPosition(double position){
-    shoulderLeftPID.setSetpoint(position, ControlType.kPosition);
-    shoulderRightPID.setSetpoint(position, ControlType.kPosition);
-    }
-
-  public void rightAngle(){
-    if(getShoulderLeftPosition() > 17.5){
-      shoulderLeft.set(-0.05);
-      shoulderRight.set(-0.05);
-    } else {
-      shoulderLeft.set(0.7);
-      shoulderRight.set(0.7);
-    }
-  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -199,5 +169,73 @@ public class Arm extends SubsystemBase {
     if((d != kD)) { shoulderRightPID.setD(d); shoulderLeftPID.setD(d); kD = d; }
     if((f != kF)) { shoulderRightPID.setFF(f); shoulderLeftPID.setFF(f); kF = f; }
     */
+  }
+
+  /*    In-Line Commands */
+
+  //  Default command to move the arm
+  public Command moveArm(DoubleSupplier telescopePowerSupplier, DoubleSupplier rotationPowerSupplier){
+    return runOnce(()->{
+      /*  Variables */
+      //    Get Inputs
+      double telescopePower = telescopePowerSupplier.getAsDouble();
+      double rotationPower = DriveConstants.PRECISION_PERCENT * -1 * rotationPowerSupplier.getAsDouble();
+
+      /*  Moving Arm */
+      // Telescoping arm
+      telescopeMotor.set(telescopePower);
+
+      //Rotating arm
+      shoulderRight.set(rotationPower);
+      shoulderLeft.set(rotationPower);
+
+      // /*  Limits on telescoping arm */
+      // //  If Telescope Arm Passes Max Extension; Stop
+      // if (telescopeEncoder.getPosition() > ArmConstants.TELESCOPE_MAX_EXTENSION && telescopePower > 0){
+      //   telescopeMotor.set(MotionConstants.NO_POWER_PERCENT);
+      // } 
+      // //  If Telescope Arm Before Min Extension; Stop
+      // else if (telescopeEncoder.getPosition() < ArmConstants.TELESCOPE_MIN_EXTENSION && telescopePower < 0) {
+      //   telescopeMotor.set(MotionConstants.NO_POWER_PERCENT);
+      // } 
+      // //  Move Telescope Arm
+      // else {
+      //   telescopeMotor.set(telescopePower);
+      // }
+    
+      // /*    Limits on shoulder rotation  */
+      // //  If Shoulder Rotation Passes Max Rotation; Stop
+      // if (shoulderEncoderRight.getPosition() > ArmConstants.SHOULDER_MAX_ROTATION && rotationPower > 0){
+      //   shoulderRight.set(MotionConstants.NO_POWER_PERCENT);
+      //   shoulderLeft.set(MotionConstants.NO_POWER_PERCENT);
+      // } 
+      // //  If Shoulder Rotation Before Min Rotation; Stop
+      // else if (shoulderEncoderRight.getPosition() < ArmConstants.SHOULDER_MIN_ROTATION && rotationPower < 0) {
+      //   shoulderRight.set(MotionConstants.NO_POWER_PERCENT);
+      //   shoulderLeft.set(MotionConstants.NO_POWER_PERCENT);
+      // } 
+      // //  Move Shoulder
+      // else {
+      // //Rotating arm
+      //   shoulderRight.set(rotationPower);
+      //   shoulderLeft.set(rotationPower);    
+      // }
+    });
+  }
+  
+  // Moves the arm to a right angle on the left
+  public Command leftAngle(){
+    return runOnce(()->{
+      shoulderLeftPID.setSetpoint(Constants.ArmConstants.LEFT_ANGLE, ControlType.kPosition);
+      shoulderRightPID.setSetpoint(Constants.ArmConstants.LEFT_ANGLE, ControlType.kPosition);
+    });
+  }
+
+    // Moves the arm to a right angle on the right
+  public Command rightAngle(){
+    return runOnce(()->{
+      shoulderLeftPID.setSetpoint(Constants.ArmConstants.RIGHT_ANGLE, ControlType.kPosition);
+      shoulderRightPID.setSetpoint(Constants.ArmConstants.RIGHT_ANGLE, ControlType.kPosition);
+    });
   }
 }

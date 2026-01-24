@@ -8,6 +8,7 @@ package frc.robot.Subsystems;
 //    WPI
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //    Robot
 import frc.robot.Constants.PneumaticsConstants;
@@ -23,21 +24,23 @@ public class Compresor extends SubsystemBase {
     //      Compressor
     compressor = new Compressor(PneumaticsConstants.CTREPCM_ID, PneumaticsModuleType.CTREPCM);
   }
-  //  Enables the compressor
-  public void enable(){
-    compressor.enableDigital();
-  }
-  //  Disables the compressor
-  public void disable(){
-    compressor.disable();
-  }
-  //  Returns if the compressor is enabled ot disabled
-  public boolean getCompressor(){
-    return compressor.isEnabled();
-  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+  
+  /*    In-Line Commands */
+
+  //  Toggles the compressor
+  public Command toggleCompressor(){
+    return runOnce(()->{   
+      if (!compressor.isEnabled()){
+        compressor.enableDigital();
+      }
+      else{
+        compressor.disable();
+      }
+    });
   }
 }
