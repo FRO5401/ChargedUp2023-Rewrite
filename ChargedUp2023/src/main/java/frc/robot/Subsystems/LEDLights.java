@@ -45,23 +45,25 @@ public class LEDLights extends SubsystemBase {
   /*    In-Line Commands   */
   //  Sets LED color by RGB
   public Command setRGBColor(int r, int g, int b){
-    return runOnce(()->{
+    return run(()->{
       for (int i = 0; i < LEDBuffer.getLength(); i++){
         LEDBuffer.setRGB(i, r, g, b);
       }
+      lightLEDs.setData(LEDBuffer);
     });
   }
   //  Sets LED color by HEX code
   public Command setHexColor(Color color){
-    return runOnce(()->{
+    return run(()->{
       for (int i = 0; i < LEDBuffer.getLength(); i++){
         LEDBuffer.setLED(i, color);
       }
+      lightLEDs.setData(LEDBuffer);
     });
   }
   //  Creates a rainbow on the LEDs
   public Command setRainbow(){
-    return runOnce(()->{
+    return run(()->{
       for (int i = 0; i < LEDBuffer.getLength(); i++){
         var hue = (firstPixel + ((i * 180 / LEDBuffer.getLength())) % 180);
         LEDBuffer.setHSV(i, hue, ColorConstants.RAINBOW_SAT, ColorConstants.RAINBOW_VAL);
