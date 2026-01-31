@@ -7,18 +7,25 @@ package frc.robot.Subsystems;
 //    REV
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
+
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
+
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
+import edu.wpi.first.wpilibj2.command.Command;
 //    WPI
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import frc.robot.Constants.ControlConstants;
 //    Robot
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.MotionConstants;
 import frc.robot.Constants.PneumaticsConstants;
 
 public class Drivebase extends SubsystemBase {
@@ -139,20 +146,82 @@ public class Drivebase extends SubsystemBase {
 
   }
 
-  //    Drive Command
-  public void move(double left, double right){
-    //    Sets speeds of motors
-    leftDrive1.set(left);
-    rightDrive1.set(right);
-  }
-  //    Change Gear
-  public void invertGear(){
-    isHighGear = !isHighGear;
-    gearShifter.set(isHighGear);
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  /*    In-Line Commands */
+
+  //    Change Gear
+  public Command invertGear(){
+    return runOnce(()->{
+      isHighGear = !isHighGear;
+      gearShifter.set(isHighGear);
+    });
+  }
+
+  //    Drive
+  public Command XboxMove(DoubleSupplier throttleSupplier, DoubleSupplier reverseSupplier, DoubleSupplier turnSupplier, BooleanSupplier pirouettingSupplier, BooleanSupplier isPrecisionSupplier, BooleanSupplier isStoppedSupplier){
+    return run(()->{
+      // Get constant values
+      int fullPower = MotionConstants.FULL_POWER_PERCENT;
+      int noPower = MotionConstants.NO_POWER_PERCENT;
+      int negPower = MotionConstants.NEGATIVE_POWER;
+      double sensitivity = ControlConstants.CONTROLLER_SENSITIVITY;
+
+      // Get inputs
+      double throttle = throttleSupplier.getAsDouble();
+      double reverse = negPower * reverseSupplier.getAsDouble();
+      boolean pirouetting = pirouettingSupplier.getAsBoolean();
+      boolean isPrecision = isPrecisionSupplier.getAsBoolean();
+      boolean isStopped = isStoppedSupplier.getAsBoolean();
+
+      // Get percent modifier
+      double percent = fullPower;
+      if (isStopped){ percent = noPower; }
+      else if (isPrecision){ percent = DriveConstants.PRECISION_PERCENT; }
+
+      // Calculate power + getting turn
+      double power = (throttle + reverse) * percent;
+      double turn = turnSupplier.getAsDouble() * percent;
+
+      /*    Normal Driving  */
+      // Moving forward
+      if (throttle >= sensitivity && Math.abs(reverse) <= sensitivity){
+        leftDrive1.set(power*(fullPower+turn));
+        rightDrive1.set(power*(fullPower-turn));
+      }
+      // Moving backward
+      else if (throttle <= sensitivity && Math.abs(reverse) >= sensitivity){
+        leftDrive1.set(power*(fullPower+turn));
+        rightDrive1.set(power*(fullPower-turn));
+      }
+      // No movement
+      else {
+        leftDrive1.set(noPower);
+        rightDrive1.set(noPower);
+      }
+
+      /*  Pirouetting */
+      double pirouetteTurn = Math.abs(turn);
+      if (pirouetting){
+        // Turning left
+        if (turn <= (negPower * sensitivity)){
+          leftDrive1.set(negPower * pirouetteTurn);
+          rightDrive1.set(pirouetteTurn);
+        }
+        // Turning right
+        else if (turn >= sensitivity){
+          leftDrive1.set(pirouetteTurn);
+          rightDrive1.set(negPower * pirouetteTurn);
+        }
+        // No movement
+        else{
+          leftDrive1.set(noPower);
+          rightDrive1.set(noPower);
+        }
+      }
+    });
   }
 }
