@@ -7,6 +7,7 @@ package frc.robot.Subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDConstants;
 import frc.robot.Constants.LEDConstants.ColorConstants;
@@ -35,35 +36,43 @@ public class LEDLights extends SubsystemBase {
 
     firstPixel = 1;
   }
-  //  Sets LED color by RGB
-  public void setRGB(int r, int g, int b){
-    for (int i = 0; i < LEDBuffer.getLength(); i++){
-      LEDBuffer.setRGB(i, r, g, b);
-    }
-  }
-  //  Sets LED color by HEX code
-  public void setHex(Color color){
-    for (int i = 0; i < LEDBuffer.getLength(); i++){
-      LEDBuffer.setLED(i, color);
-    }
-  }
-  //  Creates a rainbow on the LEDs
-  public void rainbow(){
-    for (int i = 0; i < LEDBuffer.getLength(); i++){
-      var hue = (firstPixel + ((i * 180 / LEDBuffer.getLength())) % 180);
-      LEDBuffer.setHSV(i, hue, ColorConstants.RAINBOW_SAT, ColorConstants.RAINBOW_VAL);
-    }
-
-    firstPixel += 3;
-    firstPixel %= 180;
-  }
-
-  public void setData(){
-    lightLEDs.setData(LEDBuffer);
-  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  /*    In-Line Commands   */
+  //  Sets LED color by RGB
+  public Command setRGBColor(int r, int g, int b){
+    return run(()->{
+      for (int i = 0; i < LEDBuffer.getLength(); i++){
+        LEDBuffer.setRGB(i, r, g, b);
+      }
+      lightLEDs.setData(LEDBuffer);
+    });
+  }
+  //  Sets LED color by HEX code
+  public Command setHexColor(Color color){
+    return run(()->{
+      for (int i = 0; i < LEDBuffer.getLength(); i++){
+        LEDBuffer.setLED(i, color);
+      }
+      lightLEDs.setData(LEDBuffer);
+    });
+  }
+  //  Creates a rainbow on the LEDs
+  public Command setRainbow(){
+    return run(()->{
+      for (int i = 0; i < LEDBuffer.getLength(); i++){
+        var hue = (firstPixel + ((i * 180 / LEDBuffer.getLength())) % 180);
+        LEDBuffer.setHSV(i, hue, ColorConstants.RAINBOW_SAT, ColorConstants.RAINBOW_VAL);
+      }
+
+      firstPixel += 3;
+      firstPixel %= 180;
+
+      lightLEDs.setData(LEDBuffer);
+    });
   }
 }
